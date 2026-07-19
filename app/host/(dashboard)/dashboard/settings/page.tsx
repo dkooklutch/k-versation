@@ -1,0 +1,1 @@
+import HostDataPage from'@/components/HostDataPage';export default function Page(){return <HostDataPage section="Site editor" description="Structured control for homepage copy, About text, navigation labels, social links, SEO, featured content, and footer information." actions={['Save settings','Preview','Upload logo']}/>}

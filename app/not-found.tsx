@@ -1,0 +1,1 @@
+import Link from'next/link';export default function NotFound(){return <section className="form-page"><div><div className="eyebrow">404 / Not found</div><h1>THE THREAD<br/>ENDS HERE.</h1><p>The page may have moved or remained a draft.</p><Link className="button" href="/">Return home</Link></div></section>}

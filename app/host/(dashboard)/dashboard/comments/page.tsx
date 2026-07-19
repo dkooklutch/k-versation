@@ -1,0 +1,1 @@
+import HostDataPage from'@/components/HostDataPage';export default function Page(){return <HostDataPage section="Comments" description="Search, pin, hide, restore, report, reply, and moderate anonymous comments." actions={['Search','Reported','Export']}/>}

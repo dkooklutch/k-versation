@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect width="48" height="48" fill="#0a0a0a"/>
+  <!-- K vertical -->
+  <rect x="13" y="9" width="3" height="30" fill="#f5f3ef"/>
+  <!-- K upper arm -->
+  <polygon points="16,24 16,9 31,9 16,24" fill="#f5f3ef"/>
+  <polygon points="16,24 31,9 35,9 18,24" fill="#f5f3ef"/>
+  <!-- K lower arm -->
+  <polygon points="16,24 35,39 31,39 16,24" fill="#f5f3ef"/>
+  <!-- Accent bar -->
+  <rect x="13" y="23" width="9" height="2" fill="#c8562a"/>
+</svg>

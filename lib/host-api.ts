@@ -1,0 +1,1 @@
+import{cookies}from'next/headers';import{getIronSession}from'iron-session';import{AdminSession,sessionOptions}from'./session';export async function hostAuthorized(){const s=await getIronSession<AdminSession>(await cookies(),sessionOptions);return Boolean(s.isAdmin&&s.authenticatedAt&&Date.now()-s.authenticatedAt<8*60*60*1000)}

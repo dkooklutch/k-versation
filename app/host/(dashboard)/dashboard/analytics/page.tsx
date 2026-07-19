@@ -1,0 +1,1 @@
+import HostDataPage from'@/components/HostDataPage';export default function Page(){return <HostDataPage section="Analytics" description="Verified events stay separate from host adjustments and manual display overrides." actions={['Adjust display','View audit log','Export events']}/>}

@@ -1,0 +1,10 @@
+-- Demonstration records are always marked is_sample=true. Replace before launch.
+insert into categories(name,slug,kind) values('Identity','identity','conversation'),('Society','society','conversation'),('Culture','culture',null),('Representation','representation','paper') on conflict do nothing;
+insert into conversations(slug,title,guest_name,guest_title,description,category,published_at,status,thumbnail_url,is_sample) values
+('what-we-carry-between-places','What We Carry Between Places','Sample guest','Demonstration content','Sample conversation used to demonstrate the platform.','Identity',now(),'published','/editorial/exchange.jpg',true),
+('the-distance-behind-an-image','The Distance Behind an Image','Sample guest','Demonstration content','Sample conversation used to demonstrate the platform.','Society',now()-interval '30 days','published','/editorial/bridge.jpg',true),
+('language-as-a-place-to-meet','Language as a Place to Meet','Sample guest','Demonstration content','Sample conversation used to demonstrate the platform.','Culture',now()-interval '60 days','published','/editorial/paper-study.jpg',true) on conflict do nothing;
+insert into papers(slug,title,subtitle,excerpt,topic,body,published_at,status,cover_url,is_sample) values
+('notes-on-looking-twice','Notes on Looking Twice','What changes when a familiar image is given more time?','Sample paper used to demonstrate the platform.','Representation','[{"text":"Sample editorial content."}]',now(),'published','/editorial/paper-study.jpg',true),
+('the-shape-of-an-inherited-question','The Shape of an Inherited Question','Identity is not a conclusion.','Sample paper used to demonstrate the platform.','Identity','[{"text":"Sample editorial content."}]',now()-interval '30 days','published','/editorial/bridge.jpg',true),
+('beyond-the-exported-story','Beyond the Exported Story','Culture travels quickly. Context travels more slowly.','Sample paper used to demonstrate the platform.','Culture','[{"text":"Sample editorial content."}]',now()-interval '60 days','published','/editorial/exchange.jpg',true) on conflict do nothing;

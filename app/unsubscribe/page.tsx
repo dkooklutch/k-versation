@@ -1,0 +1,1 @@
+import UnsubscribeForm from'@/components/UnsubscribeForm';export default function Unsubscribe(){return <section className="form-page"><div><div className="eyebrow">Membership / Your choice</div><h1>LEAVE<br/>THE LIST.</h1><p>Unsubscribing stops all K-VERSATION editorial and milestone email.</p></div><UnsubscribeForm/></section>}

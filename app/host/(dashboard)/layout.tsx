@@ -1,0 +1,1 @@
+import{requireAdmin}from'@/lib/admin-auth';import HostShell from '@/components/HostShell';export default async function HostLayout({children}:{children:React.ReactNode}){await requireAdmin();return <HostShell>{children}</HostShell>}

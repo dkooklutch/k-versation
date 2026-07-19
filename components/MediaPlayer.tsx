@@ -1,0 +1,9 @@
+'use client'
+import { useState } from 'react'
+export default function MediaPlayer({url,title,contentId}:{url?:string;title:string;contentId:string}){
+ const [speed,setSpeed]=useState(1)
+ function recordCompletion(){const sessionId=sessionStorage.getItem('kv-analytics-session')||crypto.randomUUID();sessionStorage.setItem('kv-analytics-session',sessionId);if(sessionStorage.getItem(`kv-complete-${contentId}`))return;sessionStorage.setItem(`kv-complete-${contentId}`,'1');navigator.sendBeacon?.('/api/analytics',JSON.stringify({eventType:'completion',contentId,contentType:'conversation',path:location.pathname,sessionId}))}
+ if(!url)return <div className="media-player"><div className="eyebrow">Media preview</div><p>This is sample content. The host can attach a direct video, YouTube, Vimeo, Supabase Storage, captions, and chapter data before publication.</p></div>
+ if(/youtu(?:\.be|be\.com)/.test(url)){const id=url.split(/v=|youtu\.be\//)[1]?.split(/[?&]/)[0];return <div className="media-player"><iframe title={title} src={`https://www.youtube-nocookie.com/embed/${id}`} allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowFullScreen/></div>}
+ return <div className="media-player"><video controls preload="metadata" onEnded={recordCompletion} onLoadedMetadata={e=>{e.currentTarget.playbackRate=speed}}><source src={url}/><track kind="captions" label="English"/>Your browser cannot play this video.</video><label>Playback speed <select value={speed} onChange={e=>{const next=Number(e.target.value);setSpeed(next);const video=e.currentTarget.parentElement?.querySelector('video');if(video)video.playbackRate=next}}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></div>
+}

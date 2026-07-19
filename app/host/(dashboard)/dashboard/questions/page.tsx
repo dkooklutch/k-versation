@@ -1,0 +1,1 @@
+import HostDataPage from'@/components/HostDataPage';export default function Page(){return <HostDataPage section="Questions" description="Review questions, recommendations, feedback, and private notes." actions={['Mark reviewed','Mark answered','Export']}/>}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" fill="#1c1c1c"/>
+  <!-- Subtle grid -->
+  <line x1="427" y1="0" x2="427" y2="720" stroke="#2a2a2a" stroke-width="1"/>
+  <line x1="854" y1="0" x2="854" y2="720" stroke="#2a2a2a" stroke-width="1"/>
+  <line x1="0" y1="240" x2="1280" y2="240" stroke="#2a2a2a" stroke-width="1"/>
+  <line x1="0" y1="480" x2="1280" y2="480" stroke="#2a2a2a" stroke-width="1"/>
+  <!-- K monogram centered -->
+  <g transform="translate(590, 296)">
+    <rect x="0" y="0" width="5" height="64" fill="#3a3a3a"/>
+    <polygon points="5,32 5,0 30,0 5,32" fill="#3a3a3a"/>
+    <polygon points="5,32 30,0 36,0 8,32" fill="#3a3a3a"/>
+    <polygon points="5,32 36,64 30,64 5,32" fill="#3a3a3a"/>
+    <rect x="5" y="31" width="12" height="2.5" fill="#c8562a" opacity="0.5"/>
+  </g>
+</svg>

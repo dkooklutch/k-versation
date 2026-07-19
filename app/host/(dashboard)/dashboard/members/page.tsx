@@ -1,0 +1,1 @@
+import HostDataPage from'@/components/HostDataPage';export default function Page(){return <HostDataPage section="Members" description="Consent-aware membership records and announcement tools." actions={['Export CSV','New announcement','Unsubscribe']}/>}
