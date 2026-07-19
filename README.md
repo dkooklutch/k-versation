@@ -75,7 +75,7 @@ The schema includes host users, conversations, chapters, papers, media assets, c
 
 ## Content and media
 
-Conversation records support uploaded/Supabase media, YouTube, Vimeo, Drive URLs, thumbnails, captions, transcripts, chapters, related links, scheduling, and per-item interaction controls. Paper records support structured rich content, cover images, PDF files, optional downloads, audio narration, citations, and the same publishing states.
+Conversation records support direct MP4/WebM/MOV uploads from the browser file picker, Supabase media, YouTube, Vimeo, and Google Drive share URLs, plus thumbnails, captions, transcripts, chapters, related links, scheduling, and per-item interaction controls. Uploads use short-lived host-authorized signed URLs, so large files go directly from the host’s device to Supabase Storage instead of passing through the application server. Paper creation requires a PDF upload and supports an embedded reader, optional downloads, cover images, audio narration, citations, and the same publishing states.
 
 The repository ships with three generated, original editorial images in `public/editorial/`. They are used only for clearly labelled demonstration pieces.
 

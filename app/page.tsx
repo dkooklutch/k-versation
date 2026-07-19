@@ -2,10 +2,12 @@ import Link from 'next/link'
 import Image from 'next/image'
 import EmailSignup from '@/components/EmailSignup'
 import { conversations, papers, formatEditorialDate, sampleTotals } from '@/lib/content'
+import { getPublishedConversations, getPublishedPapers } from '@/lib/public-content'
 
-export default function Home() {
-  const conversation = conversations[0]
-  const paper = papers[0]
+export default async function Home() {
+  const [publishedConversations,publishedPapers]=await Promise.all([getPublishedConversations(),getPublishedPapers()])
+  const conversation = publishedConversations[0]||conversations[0]
+  const paper = publishedPapers[0]||papers[0]
   const numbers = [
     [sampleTotals.impressions, 'Site impressions'], [sampleTotals.contentViews, 'Content views'],
     [sampleTotals.conversations, 'Conversations'], [sampleTotals.papers, 'Papers'],

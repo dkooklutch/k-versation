@@ -1,3 +1,29 @@
-import{NextRequest,NextResponse}from'next/server';import{hostAuthorized}from'@/lib/host-api';import{createAdminClient}from'@/lib/supabase/admin';import{hasDatabase}from'@/lib/security';
-const allowed=new Set(['image/jpeg','image/png','image/webp','video/mp4','video/webm','audio/mpeg','audio/mp4','application/pdf','text/vtt']);
-export async function POST(req:NextRequest){if(!await hostAuthorized())return NextResponse.json({error:'Unauthorized'},{status:401});if(!hasDatabase())return NextResponse.json({error:'Configure Supabase before uploading.'},{status:503});const form=await req.formData(),file=form.get('file');if(!(file instanceof File)||!allowed.has(file.type)||file.size>500*1024*1024)return NextResponse.json({error:'Unsupported file or file exceeds 500 MB.'},{status:400});const path=`${new Date().toISOString().slice(0,10)}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'-')}`;const db=createAdminClient();const{error}=await db.storage.from('kversation-media').upload(path,file,{contentType:file.type});if(error)return NextResponse.json({error:error.message},{status:500});const{data}=db.storage.from('kversation-media').getPublicUrl(path);await db.from('media_assets').insert({storage_path:path,public_url:data.publicUrl,mime_type:file.type,byte_size:file.size});return NextResponse.json({url:data.publicUrl,path})}
+import { NextRequest, NextResponse } from 'next/server'
+import { hostAuthorized } from '@/lib/host-api'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { cleanText, hasDatabase } from '@/lib/security'
+
+const videoTypes = new Set(['video/mp4', 'video/webm', 'video/quicktime'])
+const pdfTypes = new Set(['application/pdf'])
+
+export async function POST(req: NextRequest) {
+  if (!await hostAuthorized()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!hasDatabase()) return NextResponse.json({ error: 'Configure Supabase before uploading.' }, { status: 503 })
+  try {
+    const body = await req.json()
+    const kind = body.kind === 'pdf' ? 'pdf' : 'video'
+    const fileName = cleanText(body.fileName, 240)
+    const mimeType = cleanText(body.mimeType, 100)
+    const size = Number(body.size)
+    const allowed = kind === 'pdf' ? pdfTypes.has(mimeType) && /\.pdf$/i.test(fileName) : videoTypes.has(mimeType) && /\.(mp4|webm|mov)$/i.test(fileName)
+    const limit = kind === 'pdf' ? 100 * 1024 * 1024 : 2 * 1024 * 1024 * 1024
+    if (!allowed || !Number.isFinite(size) || size < 1 || size > limit) return NextResponse.json({ error: kind === 'pdf' ? 'Choose a PDF smaller than 100 MB.' : 'Choose an MP4, WebM, or MOV video smaller than 2 GB.' }, { status: 400 })
+    const safeName = fileName.replace(/[^a-zA-Z0-9._-]/g, '-')
+    const path = `${kind}/${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}-${safeName}`
+    const db = createAdminClient()
+    const { data, error } = await db.storage.from('kversation-media').createSignedUploadUrl(path)
+    if (error) throw error
+    const { data: publicData } = db.storage.from('kversation-media').getPublicUrl(path)
+    return NextResponse.json({ path, token: data.token, url: publicData.publicUrl })
+  } catch { return NextResponse.json({ error: 'The secure upload could not be prepared.' }, { status: 500 }) }
+}

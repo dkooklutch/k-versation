@@ -1,0 +1,5 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { hostAuthorized } from '@/lib/host-api'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { cleanText, hasDatabase } from '@/lib/security'
+export async function POST(req: NextRequest) { if (!await hostAuthorized()) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 }); if (!hasDatabase()) return NextResponse.json({ error: 'Database unavailable' }, { status: 503 }); const b = await req.json(); const row = { storage_path: cleanText(b.path, 600), public_url: cleanText(b.url, 1200), mime_type: cleanText(b.mimeType, 100), byte_size: Number(b.size) }; if (!row.storage_path || !row.public_url || !row.mime_type || !Number.isFinite(row.byte_size)) return NextResponse.json({ error: 'Invalid upload record.' }, { status: 400 }); const { error } = await createAdminClient().from('media_assets').insert(row); return error ? NextResponse.json({ error: error.message }, { status: 500 }) : NextResponse.json({ ok: true }) }

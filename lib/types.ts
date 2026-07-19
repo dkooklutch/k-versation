@@ -31,6 +31,8 @@ export type Paper = {
   publishedAt: string
   readingTime: string
   audioDuration?: string
+  pdfUrl?: string
+  pdfDownloadEnabled?: boolean
   image: string
   body: Array<{ heading?: string; text?: string; quote?: string }>
   views: number
