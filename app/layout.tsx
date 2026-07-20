@@ -12,9 +12,9 @@ export const metadata: Metadata = {
   title: { default: 'K-VERSATION — Korea, through people', template: '%s | K-VERSATION' },
   description: 'Conversations and original writing that explore Korea through the people shaping, questioning, and living its culture.',
   alternates: { canonical: '/' },
-  openGraph: { type: 'website', siteName: 'K-VERSATION', title: 'K-VERSATION — Korea, through people', description: 'Conversations and original writing beyond headlines and inherited assumptions.', images: ['/editorial/bridge.jpg'] },
+  openGraph: { type: 'website', siteName: 'K-VERSATION', title: 'K-VERSATION — Korea, through people', description: 'Conversations and original writing beyond headlines and inherited assumptions.', images: ['/brand/k-versation-social.svg'] },
   twitter: { card: 'summary_large_image' },
-  icons: { icon: '/brand/bridge-symbol.svg', shortcut: '/brand/bridge-symbol.svg', apple: '/brand/bridge-symbol.svg' },
+  icons: { icon: '/brand/favicon.svg', shortcut: '/brand/favicon.svg', apple: '/brand/bridge-symbol.svg' },
   robots: { index: true, follow: true }
 }
 

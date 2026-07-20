@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { BrandMark } from './BrandMark'
+import PublicationLogo from './PublicationLogo'
 
 const links = [['Conversations','/conversations'], ['Papers','/papers'], ['About','/about'], ['Questions','/questions'], ['Join','/join']]
 
@@ -13,7 +13,7 @@ export default function Nav() {
   return <header className="site-header">
     <a className="skip-link" href="#main-content">Skip to content</a>
     <span className="nav-edition">Seoul ↔ California</span>
-    <span className="nav-centered-logo" onClick={e => { if (pathname === '/') { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }) } }}><span className="nav-logo-full"><BrandMark /></span><span className="nav-logo-compact"><BrandMark compact /></span></span>
+    <span className="nav-centered-logo" onClick={e => { if (pathname === '/') { e.preventDefault(); scrollTo({ top: 0, behavior: 'smooth' }) } }}><span className="nav-logo-full"><PublicationLogo href="/" /></span><span className="nav-logo-compact"><PublicationLogo variant="compact" href="/" /></span></span>
     <nav className="nav-desktop" aria-label="Primary">
       {links.slice(0,3).map(([label, href], i) => <Link key={href} href={href} onClick={()=>setOpen(false)} aria-current={pathname.startsWith(href) ? 'page' : undefined}><small>0{i + 1}</small>{label}</Link>)}
     </nav>
