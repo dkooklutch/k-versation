@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true }
 }
 
-export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#151814' }
+export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#15171a' }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return <html lang="en" className={`${display.variable} ${editorial.variable}`}><body><SiteWrapper>{children}</SiteWrapper></body></html>

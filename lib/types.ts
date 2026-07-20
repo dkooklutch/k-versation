@@ -19,6 +19,8 @@ export type Conversation = {
   reactionsEnabled: boolean
   status: ContentStatus
   sample: boolean
+  homepageVisible?: boolean
+  featured?: boolean
 }
 
 export type Paper = {
@@ -39,6 +41,8 @@ export type Paper = {
   reactions: number
   status: ContentStatus
   sample: boolean
+  homepageVisible?: boolean
+  featured?: boolean
 }
 
 export type PublicComment = {

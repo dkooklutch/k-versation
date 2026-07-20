@@ -43,3 +43,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .env*
+
+# Local integration tooling
+/.agents/
+/skills-lock.json
+/supabase/.temp/

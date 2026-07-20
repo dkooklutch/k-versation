@@ -8,5 +8,5 @@
   <!-- K lower arm -->
   <polygon points="16,24 35,39 31,39 16,24" fill="#f5f3ef"/>
   <!-- Accent bar -->
-  <rect x="13" y="23" width="9" height="2" fill="#c8562a"/>
+  <rect x="13" y="23" width="9" height="2" fill="#2d4a68"/>
 </svg>

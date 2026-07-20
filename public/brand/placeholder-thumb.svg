@@ -11,6 +11,6 @@
     <polygon points="5,32 5,0 30,0 5,32" fill="#3a3a3a"/>
     <polygon points="5,32 30,0 36,0 8,32" fill="#3a3a3a"/>
     <polygon points="5,32 36,64 30,64 5,32" fill="#3a3a3a"/>
-    <rect x="5" y="31" width="12" height="2.5" fill="#c8562a" opacity="0.5"/>
+    <rect x="5" y="31" width="12" height="2.5" fill="#2d4a68" opacity="0.7"/>
   </g>
 </svg>

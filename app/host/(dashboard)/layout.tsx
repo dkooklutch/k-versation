@@ -1,1 +1,1 @@
-import{requireAdmin}from'@/lib/admin-auth';import HostShell from '@/components/HostShell';export default async function HostLayout({children}:{children:React.ReactNode}){await requireAdmin();return <HostShell>{children}</HostShell>}
+import{requireAdmin}from'@/lib/admin-auth';import HostShell from '@/components/HostShell';export const dynamic='force-dynamic';export const revalidate=0;export default async function HostLayout({children}:{children:React.ReactNode}){await requireAdmin();return <HostShell>{children}</HostShell>}

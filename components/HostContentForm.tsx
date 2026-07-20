@@ -1,82 +1,25 @@
 'use client'
-
-import { FormEvent, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
-
-type UploadResult = { url: string; path: string }
-
-async function uploadFile(file: File, kind: 'video' | 'pdf', onStatus: (value: string) => void): Promise<UploadResult> {
-  onStatus(`Preparing ${kind === 'video' ? 'video' : 'PDF'} upload…`)
-  const signed = await fetch('/api/host/upload', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ fileName: file.name, mimeType: file.type, size: file.size, kind })
-  })
-  const upload = await signed.json()
-  if (!signed.ok) throw new Error(upload.error || 'The upload could not be prepared.')
-  onStatus(`Uploading ${file.name} directly to secure storage…`)
-  const { error } = await createClient().storage.from('kversation-media').uploadToSignedUrl(upload.path, upload.token, file, { contentType: file.type })
-  if (error) throw error
-  await fetch('/api/host/upload/complete', {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ path: upload.path, url: upload.url, mimeType: file.type, size: file.size })
-  })
-  return { url: upload.url, path: upload.path }
-}
-
-export default function HostContentForm() {
-  const [status, setStatus] = useState('')
-  const [type, setType] = useState<'conversation' | 'paper'>('conversation')
-  const [videoSource, setVideoSource] = useState<'upload' | 'external'>('upload')
-  const [saving, setSaving] = useState(false)
-
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault(); setSaving(true)
-    const form = event.currentTarget
-    const formData = new FormData(form)
-    const payload: Record<string, string> = {}
-    formData.forEach((value, key) => { if (typeof value === 'string') payload[key] = value })
-    try {
-      if (type === 'conversation' && videoSource === 'upload') {
-        const file = formData.get('videoFile')
-        if (!(file instanceof File) || !file.size) throw new Error('Choose an MP4 or supported video file.')
-        const result = await uploadFile(file, 'video', setStatus)
-        payload.mediaUrl = result.url; payload.mediaSource = 'upload'
-      } else if (type === 'conversation') {
-        if (!payload.mediaUrl) throw new Error('Paste a Google Drive, YouTube, Vimeo, or direct video URL.')
-        payload.mediaSource = 'external'
-      } else {
-        const file = formData.get('pdfFile')
-        if (!(file instanceof File) || !file.size) throw new Error('Choose the PDF for this paper.')
-        const result = await uploadFile(file, 'pdf', setStatus)
-        payload.pdfUrl = result.url
-      }
-      setStatus('Saving content…')
-      const response = await fetch('/api/host/content', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-      const data = await response.json().catch(() => ({}))
-      if (!response.ok) throw new Error(data.error || 'Content could not be saved.')
-      setStatus(type === 'paper' ? 'Paper and PDF saved.' : 'Conversation and video saved.')
-      form.reset(); setVideoSource('upload')
-    } catch (error) { setStatus(error instanceof Error ? error.message : 'Upload failed.') }
-    finally { setSaving(false) }
-  }
-
-  return <form className="host-form" onSubmit={submit}>
-    <label>Content type<select name="type" value={type} onChange={e => setType(e.target.value as 'conversation' | 'paper')}><option value="conversation">Conversation</option><option value="paper">Paper</option></select></label>
-    <label>Title<input name="title" required maxLength={180}/></label>
-    <label>Slug<input name="slug" required pattern="[a-z0-9-]+" placeholder="lowercase-with-hyphens"/></label>
-    {type === 'conversation' ? <>
-      <label>Guest name<input name="guestName" required/></label><label>Category<input name="category"/></label>
-      <fieldset className="host-fieldset"><legend>Video</legend><label>Video source<select value={videoSource} onChange={e => setVideoSource(e.target.value as 'upload' | 'external')}><option value="upload">Upload from this device</option><option value="external">Google Drive or video URL</option></select></label>
-      {videoSource === 'upload' ? <label>Choose video file<input name="videoFile" type="file" accept="video/mp4,.mp4,video/webm,.webm,video/quicktime,.mov" required/><small>Choose from Desktop, Downloads, an external drive, or any folder available to this browser. MP4 is recommended.</small></label> : <label>Google Drive, YouTube, Vimeo, or direct URL<input name="mediaUrl" type="url" required placeholder="https://drive.google.com/file/d/…/view"/><small>For Google Drive, set the file to “Anyone with the link” so visitors can play it.</small></label>}</fieldset>
-    </> : <>
-      <label>Subtitle<input name="subtitle"/></label><label>Topic<input name="topic"/></label>
-      <fieldset className="host-fieldset"><legend>Required paper file</legend><label>Upload PDF<input name="pdfFile" type="file" accept="application/pdf,.pdf" required/><small>Every paper requires a PDF. The uploaded file becomes the embedded reader and optional download.</small></label><label className="host-check"><input name="pdfDownloadEnabled" type="checkbox" value="true"/> Allow visitors to download the PDF</label></fieldset>
-      <label>Optional audio narration URL<input name="audioUrl" type="url"/></label>
-    </>}
-    <label>Description / body<textarea name="description" required/></label>
-    <label>Status<select name="status"><option>draft</option><option>scheduled</option><option>published</option><option>unpublished</option><option>archived</option></select></label>
-    <label>Publish or schedule date<input name="publishedAt" type="datetime-local"/></label>
-    <label>Cover asset URL<input name="imageUrl" placeholder="/editorial/bridge.jpg"/></label>
-    <div><button className="button" disabled={saving}>{saving ? 'Working…' : 'Upload and save'}</button> <a className="button secondary" href="/" target="_blank">Preview site</a></div><p role="status" aria-live="polite">{status}</p>
-  </form>
+import{FormEvent,useEffect,useMemo,useState}from'react'
+import{useRouter}from'next/navigation'
+import{createClient}from'@/lib/supabase/client'
+type Kind='conversation'|'paper';type Item=Record<string,unknown>;type UploadKind='video'|'pdf'|'image'|'audio'
+async function uploadFile(file:File,kind:UploadKind,onStatus:(v:string)=>void){onStatus(`Preparing ${file.name}…`);const signed=await fetch('/api/host/upload',{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({fileName:file.name,mimeType:file.type,size:file.size,kind})}),upload=await signed.json();if(!signed.ok)throw new Error(upload.error||'Upload could not be prepared.');onStatus(`Uploading ${file.name}…`);const{error}=await createClient().storage.from('kversation-media').uploadToSignedUrl(upload.path,upload.token,file,{contentType:file.type});if(error)throw error;await fetch('/api/host/upload/complete',{method:'POST',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:upload.path,url:upload.url,mimeType:file.type,size:file.size})});return upload.url as string}
+const dateValue=(v:unknown)=>typeof v==='string'&&v?new Date(v).toISOString().slice(0,16):''
+const value=(item:Item|undefined,key:string)=>{const v=item?.[key];if(key==='body'&&Array.isArray(v))return String((v[0]as Item)?.text||'');if(Array.isArray(v))return v.map(x=>typeof x==='string'?x:JSON.stringify(x)).join('\n');return typeof v==='string'||typeof v==='number'?String(v):''}
+const checked=(item:Item|undefined,key:string,fallback=false)=>typeof item?.[key]==='boolean'?Boolean(item[key]):fallback
+function Field({label,children,help}:{label:string;children:React.ReactNode;help?:string}){return <label>{label}{children}{help&&<small>{help}</small>}</label>}
+export default function HostContentForm({kind,initial}:{kind:Kind;initial?:Item}){
+ const router=useRouter(),editing=Boolean(initial?.id),[tab,setTab]=useState('basic'),[dirty,setDirty]=useState(false),[saving,setSaving]=useState(false),[status,setStatus]=useState(''),[preview,setPreview]=useState({video:value(initial,'video_url'),image:value(initial,kind==='paper'?'cover_url':'thumbnail_url')}),tabs=useMemo(()=>['basic','media','dates','engagement','publishing','seo'],[])
+ useEffect(()=>{const warn=(e:BeforeUnloadEvent)=>{if(dirty){e.preventDefault();e.returnValue=''}};addEventListener('beforeunload',warn);return()=>removeEventListener('beforeunload',warn)},[dirty])
+ async function submit(e:FormEvent<HTMLFormElement>){e.preventDefault();setSaving(true);setStatus('Saving changes…');const form=e.currentTarget,fd=new FormData(form),payload:Record<string,unknown>={type:kind,id:initial?.id};fd.forEach((v,k)=>{if(typeof v==='string')payload[k]=v});for(const key of ['comments_enabled','reactions_enabled','featured','homepage_visible','pdf_download_enabled'])payload[key]=fd.has(key);try{for(const spec of kind==='conversation'?[['videoFile','video','video_url'],['thumbnailFile','image','thumbnail_url'],['coverFile','image','cover_url']]:[['pdfFile','pdf','pdf_url'],['coverFile','image','cover_url'],['audioFile','audio','audio_url']]){const[fileKey,uploadKind,target]=spec as string[],file=fd.get(fileKey);if(file instanceof File&&file.size)payload[target]=await uploadFile(file,uploadKind as UploadKind,setStatus)}const response=await fetch('/api/host/content',{method:editing?'PATCH':'POST',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}),data=await response.json();if(!response.ok)throw new Error(data.error||'Changes could not be saved.');setDirty(false);setStatus('Saved. The public site will use these changes immediately.');if(!editing)router.replace(`/host/dashboard/content?type=${kind}&edit=${data.item.id}`);router.refresh()}catch(error){setStatus(error instanceof Error?error.message:'Changes could not be saved.')}finally{setSaving(false)}}
+ async function remove(){if(!initial?.id||!confirm(`Delete this ${kind}? This cannot be undone.`))return;const r=await fetch('/api/host/content',{method:'DELETE',cache:'no-store',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:kind,id:initial.id})});if(r.ok){setDirty(false);router.replace(`/host/dashboard/content?type=${kind}`);router.refresh()}else setStatus((await r.json()).error||'Delete failed.')}
+ const input=(name:string,props:React.InputHTMLAttributes<HTMLInputElement>={})=><input name={name} defaultValue={props.type==='datetime-local'?dateValue(initial?.[name]):value(initial,name)} {...props}/>
+ return <form className="host-form host-editor" onSubmit={submit} onChange={()=>setDirty(true)}><div className="host-editor-top"><div><small>{editing?'Edit existing':'Create new'}</small><h2>{editing?value(initial,'title'):`New ${kind}`}</h2></div><div><button type="button" className="button secondary" onClick={()=>router.back()}>Cancel</button> <button className="button" disabled={saving}>{saving?'Saving…':'Save Changes'}</button></div></div><nav className="host-tabs" aria-label="Editor sections">{tabs.map(name=><button type="button" key={name} className={tab===name?'active':''} onClick={()=>setTab(name)}>{name}</button>)}</nav>
+ <fieldset hidden={tab!=='basic'}><legend>Basic Information</legend>{<><Field label="Title">{input('title',{required:true,maxLength:180})}</Field>{kind==='conversation'?<><Field label="Guest name">{input('guest_name',{required:true})}</Field><Field label="Guest role or affiliation">{input('guest_title')}</Field><Field label="Subtitle">{input('subtitle')}</Field><Field label="Short description"> <textarea name="short_description" defaultValue={value(initial,'short_description')}/></Field><Field label="Full description"><textarea name="description" defaultValue={value(initial,'description')} required/></Field></>:<><Field label="Subtitle">{input('subtitle')}</Field><Field label="Excerpt"><textarea name="excerpt" defaultValue={value(initial,'excerpt')}/></Field><Field label="Full written content"><textarea name="body" defaultValue={value(initial,'body')} required/></Field></>}<div className="host-form-grid"><Field label="Category">{input('category')}</Field><Field label="Topic">{input('topic')}</Field></div></>}</fieldset>
+ <fieldset hidden={tab!=='media'}><legend>Media</legend>{kind==='conversation'?<><Field label="Video URL" help="Paste Google Drive, YouTube, Vimeo, or a direct URL.">{input('video_url',{type:'url',onChange:e=>setPreview(p=>({...p,video:e.target.value}))})}</Field><Field label="Or upload a video" help="Choose an MP4, WebM, or MOV from Desktop, Downloads, an external drive, or any folder."><input name="videoFile" type="file" accept="video/mp4,.mp4,video/webm,.webm,video/quicktime,.mov"/></Field>{preview.video&&<video className="host-media-preview" src={preview.video} controls/>}<Field label="Thumbnail URL">{input('thumbnail_url',{type:'url',onChange:e=>setPreview(p=>({...p,image:e.target.value}))})}</Field><Field label="Or upload thumbnail"><input name="thumbnailFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif"/></Field><Field label="Cover image URL">{input('cover_url',{type:'url'})}</Field><Field label="Or upload cover"><input name="coverFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif"/></Field></>:<><Field label="PDF URL">{input('pdf_url',{type:'url',required:!editing})}</Field><Field label="Upload or replace PDF" help="Papers must have a PDF."><input name="pdfFile" type="file" accept="application/pdf,.pdf" required={!editing&&!value(initial,'pdf_url')}/></Field><Field label="Cover image URL">{input('cover_url',{type:'url',onChange:e=>setPreview(p=>({...p,image:e.target.value}))})}</Field><Field label="Or upload cover"><input name="coverFile" type="file" accept="image/jpeg,image/png,image/webp,image/avif"/></Field><Field label="Audio narration URL">{input('audio_url',{type:'url'})}</Field><Field label="Or upload narration"><input name="audioFile" type="file" accept="audio/mpeg,audio/mp4,audio/wav"/></Field><label className="host-check"><input name="pdf_download_enabled" type="checkbox" defaultChecked={checked(initial,'pdf_download_enabled')}/> Allow PDF downloads</label></>}{preview.image&&<>{/* eslint-disable-next-line @next/next/no-img-element */}<img className="host-image-preview" src={preview.image} alt="Current media preview"/></>}</fieldset>
+ <fieldset hidden={tab!=='dates'}><legend>Dates and timing</legend><p className="host-help">These dates are independent. The displayed upload date is what visitors see.</p><Field label="Publication date">{input('published_at',{type:'datetime-local'})}</Field><Field label="Displayed upload date">{input('display_date',{type:'datetime-local'})}</Field>{kind==='conversation'&&<Field label="Original recording date">{input('recording_date',{type:'datetime-local'})}</Field>}<Field label="Scheduled publication date">{input('scheduled_for',{type:'datetime-local'})}</Field>{kind==='conversation'?<Field label="Duration in seconds">{input('duration_seconds',{type:'number',min:0})}</Field>:<><Field label="Reading time in minutes">{input('reading_minutes',{type:'number',min:1})}</Field><Field label="Audio duration in seconds">{input('audio_duration_seconds',{type:'number',min:0})}</Field></>}</fieldset>
+ <fieldset hidden={tab!=='engagement'}><legend>Engagement and supporting material</legend><div className="host-form-grid"><Field label="View count adjustment">{input('view_adjustment',{type:'number'})}</Field><Field label="Reaction count adjustment">{input('reaction_adjustment',{type:'number'})}</Field></div><label className="host-check"><input name="comments_enabled" type="checkbox" defaultChecked={checked(initial,'comments_enabled',true)}/> Comments enabled</label><label className="host-check"><input name="reactions_enabled" type="checkbox" defaultChecked={checked(initial,'reactions_enabled',true)}/> Reactions enabled</label>{kind==='conversation'?<><Field label="Captions URL">{input('captions_url',{type:'url'})}</Field><Field label="Transcript"><textarea name="transcript" defaultValue={value(initial,'transcript')}/></Field><Field label="Chapter markers" help="One chapter per line."><textarea name="chapters" defaultValue={value(initial,'chapters')}/></Field><Field label="Related links" help="One link per line."><textarea name="related_links" defaultValue={value(initial,'related_links')}/></Field></>:<><Field label="References" help="One reference per line."><textarea name="references_data" defaultValue={value(initial,'references_data')}/></Field><Field label="Footnotes" help="One footnote per line."><textarea name="footnotes" defaultValue={value(initial,'footnotes')}/></Field></>}</fieldset>
+ <fieldset hidden={tab!=='publishing'}><legend>Publishing</legend><Field label="Status"><select name="status" defaultValue={value(initial,'status')||'draft'}><option value="draft">Draft</option><option value="published">Published</option><option value="scheduled">Scheduled</option><option value="unpublished">Unpublished</option><option value="archived">Archived</option></select></Field><label className="host-check"><input name="featured" type="checkbox" defaultChecked={checked(initial,'featured')}/> Featured content</label><label className="host-check"><input name="homepage_visible" type="checkbox" defaultChecked={checked(initial,'homepage_visible',true)}/> Show on homepage</label><Field label="URL slug" help="Lowercase letters, numbers, and hyphens only.">{input('slug',{required:true,pattern:'[a-z0-9-]+'})}</Field></fieldset>
+ <fieldset hidden={tab!=='seo'}><legend>Search and sharing</legend><Field label="SEO title">{input('seo_title',{maxLength:180})}</Field><Field label="SEO description"><textarea name="seo_description" maxLength={320} defaultValue={value(initial,'seo_description')}/></Field></fieldset>
+ <div className="host-editor-footer"><button className="button" disabled={saving}>Save Changes</button>{editing&&<a className="button secondary" target="_blank" href={`/${kind==='paper'?'papers':'conversations'}/${value(initial,'slug')}`}>Preview</a>}<button type="button" className="button danger" onClick={remove} disabled={!editing}>Delete</button></div><p role="status" className="host-save-status" aria-live="polite">{status}</p></form>
 }
