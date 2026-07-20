@@ -10,7 +10,7 @@ export default function OpeningSequence() {
   const [reduced, setReduced] = useState(false)
   useEffect(() => {
     let isReduced=false
-    try { isReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(sessionStorage.getItem('kv-intro-seen'))return } catch { isReduced=true }
+    try { isReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;if(sessionStorage.getItem('kv-intro-seen'))return;sessionStorage.setItem('kv-intro-seen','1') } catch { isReduced=true }
     const frame = requestAnimationFrame(() => {setReduced(isReduced);setVisible(true)})
     const timer = window.setTimeout(() => { try{sessionStorage.setItem('kv-intro-seen','1')}catch{} setVisible(false) }, isReduced?OPENING_TIMING.reducedMs:OPENING_TIMING.normalMs)
     return () => { cancelAnimationFrame(frame); window.clearTimeout(timer) }
