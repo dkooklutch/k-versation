@@ -1,8 +1,9 @@
 import Link from 'next/link'
+import { BrandMark } from './BrandMark'
 export default function Footer() {
   return <footer className="site-footer">
     <div className="footer-callout"><p>Keep the question open.</p><Link href="/join">Be part of the conversation <span>↗</span></Link></div>
-    <div className="footer-wordmark" aria-hidden="true">K<span>—</span>VERSATION</div>
+    <div className="footer-wordmark" aria-hidden="true"><BrandMark href="" /></div>
     <div className="footer-grid">
       <div><small>Platform</small><p>Created by Daniel Koo<br />Bay Area, California</p></div>
       <div><small>Navigate</small><Link href="/conversations">Conversations</Link><Link href="/papers">Papers</Link><Link href="/about">About</Link><Link href="/questions">Questions</Link></div>

@@ -1,24 +1,20 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import EmailSignup from '@/components/EmailSignup'
-import { conversations, papers, formatEditorialDate, sampleTotals } from '@/lib/content'
+import { conversations, papers, formatEditorialDate } from '@/lib/content'
 import { getPublishedConversations, getPublishedPapers } from '@/lib/public-content'
+import LiveStatistics from '@/components/LiveStatistics'
+import { BrandMark } from '@/components/BrandMark'
 
 export default async function Home() {
   const [publishedConversations,publishedPapers]=await Promise.all([getPublishedConversations(),getPublishedPapers()])
   const conversation = publishedConversations[0]||conversations[0]
   const paper = publishedPapers[0]||papers[0]
-  const numbers = [
-    [sampleTotals.impressions, 'Site impressions'], [sampleTotals.contentViews, 'Content views'],
-    [sampleTotals.conversations, 'Conversations'], [sampleTotals.papers, 'Papers'],
-    [sampleTotals.reactions, 'Reactions'], [sampleTotals.comments, 'Comments'],
-    [sampleTotals.subscribers, 'Subscribers'], [sampleTotals.countries, 'Countries reached']
-  ]
   return <>
     <section className="hero">
       <div className="eyebrow">Independent cultural publication · Bay Area / Korea</div>
       <p className="hero-copy">K-VERSATION explores Korea through the people shaping, questioning, and living its culture. Conversations and original writing move beyond headlines and inherited assumptions.</p>
-      <div className="hero-word" aria-label="K-VERSATION">K<span>—</span>VERSATION</div>
+      <div className="hero-word"><BrandMark href="" /></div>
       <div className="hero-meta"><span>Founded by Daniel Koo</span><span>Conversation / Culture / Identity</span><span>Scroll to read ↓</span></div>
     </section>
 
@@ -40,7 +36,7 @@ export default async function Home() {
 
     <section className="section section-dark">
       <header className="section-head"><div className="eyebrow">03 / By the numbers</div><h2>Measured reach.<br />Human scale.</h2></header>
-      <div className="numbers">{numbers.map(([value,label]) => <div className="number" key={label}><strong>{Number(value).toLocaleString()}</strong><span>{label}</span><small>{label === 'Conversations' || label === 'Papers' ? 'Includes labelled sample content' : 'Verified total'}</small></div>)}</div>
+      <LiveStatistics />
     </section>
 
     <section className="section join-band">
