@@ -5,7 +5,6 @@ import { conversations, papers, formatEditorialDate } from '@/lib/content'
 import { getPublishedConversations, getPublishedPapers } from '@/lib/public-content'
 import LiveStatistics from '@/components/LiveStatistics'
 import { BrandMark } from '@/components/BrandMark'
-import PublicationLogo from '@/components/PublicationLogo'
 import ShareControl from '@/components/ShareControl'
 import { getSiteSettings } from '@/lib/site-settings'
 export const dynamic='force-dynamic';export const revalidate=0
@@ -19,7 +18,6 @@ export default async function Home() {
       <div className="eyebrow">{settings.eyebrow}</div>
       <p className="hero-copy">{settings.intro}</p>
       <div className="hero-word"><BrandMark href="" /></div>
-      <div className="hero-logo-lockup"><PublicationLogo/><span>Independent conversations and writing</span></div>
       <div className="hero-meta"><span>Founded by Daniel Koo</span><span>Conversation / Culture / Identity</span><span>Scroll to read ↓</span></div>
     </section>
 
