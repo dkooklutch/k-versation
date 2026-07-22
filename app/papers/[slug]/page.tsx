@@ -1,12 +1,52 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import Image from 'next/image'
-import { papers, formatEditorialDate } from '@/lib/content'
+import { papers } from '@/lib/content'
 import Interactions from '@/components/Interactions'
 import ContentAnalytics from '@/components/ContentAnalytics'
-import PdfReader from '@/components/PdfReader'
-import { getPaper } from '@/lib/public-content'
-export const dynamic='force-dynamic';export const revalidate=0
-export function generateStaticParams(){return papers.map(({slug})=>({slug}))}
-export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const p=await getPaper(slug);return p?{title:p.title,description:p.excerpt,openGraph:{images:[p.image],type:'article'}}:{}}
-export default async function PaperDetail({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const p=await getPaper(slug);if(!p)notFound();return <><ContentAnalytics contentId={p.id} contentType="paper"/><article><header className="article-hero"><div className="article-hero-copy"><div className="eyebrow">Paper / {p.topic}</div><div><div className="meta-row"><span>{p.sample?'Sample content':''}</span><span>{formatEditorialDate(p.publishedAt)}</span><span>{p.readingTime}</span>{p.audioDuration&&<span>{p.audioDuration}</span>}</div><h1>{p.title}</h1><p>{p.subtitle}</p></div><p>Written by Daniel Koo</p></div><div className="article-hero-media"><Image src={p.image} alt="Sculptural paper study" width={1400} height={1800} priority/></div></header>{p.pdfUrl&&<PdfReader url={p.pdfUrl} title={p.title} downloadEnabled={p.pdfDownloadEnabled}/>}<div className="article-content"><div className="prose">{p.body.map((block,i)=>block.heading?<h2 key={i}>{block.heading}</h2>:block.quote?<blockquote key={i}>“{block.quote}”</blockquote>:<p key={i}>{block.text}</p>)}</div></div></article><Interactions contentId={p.id} contentType="paper"/></>}
+import PaperArticle from '@/components/PaperArticle'
+import { getPaper, getPublishedPapers } from '@/lib/public-content'
+
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+export function generateStaticParams() {
+  return papers.map(({ slug }) => ({ slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const paper = await getPaper(slug)
+  return paper ? {
+    title: paper.seoTitle || paper.title,
+    description: paper.seoDescription || paper.summary || paper.excerpt,
+    authors: [{ name: paper.authorName }],
+    openGraph: {
+      images: [{ url: paper.image, alt: paper.title }],
+      type: 'article',
+      publishedTime: paper.publishedAt,
+      modifiedTime: paper.revisedAt,
+      authors: [paper.authorName],
+    },
+  } : {}
+}
+
+export default async function PaperDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const [paper, published] = await Promise.all([getPaper(slug), getPublishedPapers()])
+  if (!paper) notFound()
+  const related = published
+    .filter(item => item.id !== paper.id)
+    .sort((a, b) => Number(b.category === paper.category) - Number(a.category === paper.category))
+    .slice(0, 3)
+
+  return <>
+    <ContentAnalytics contentId={paper.id} contentType="paper" />
+    <PaperArticle paper={paper} related={related} />
+    <Interactions
+      contentId={paper.id}
+      contentType="paper"
+      commentsEnabled={paper.commentsEnabled}
+      reactionsEnabled={paper.reactionsEnabled}
+    />
+  </>
+}

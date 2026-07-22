@@ -12,7 +12,8 @@ export const dynamic='force-dynamic';export const revalidate=0
 export default async function Home() {
   const [publishedConversations,publishedPapers,settings]=await Promise.all([getPublishedConversations(),getPublishedPapers(),getSiteSettings()])
   const conversation = publishedConversations.filter(item=>item.homepageVisible!==false).sort((a,b)=>Number(b.featured)-Number(a.featured))[0]||conversations[0]
-  const paper = publishedPapers.filter(item=>item.homepageVisible!==false).sort((a,b)=>Number(b.featured)-Number(a.featured))[0]||papers[0]
+  const homepagePapers = publishedPapers.filter(item=>item.homepageVisible!==false)
+  const paper = (settings.paperFeatureMode==='newest' ? homepagePapers[0] : homepagePapers.find(item=>item.featured)) || homepagePapers[0] || papers[0]
   return <>
     <section className="hero">
       <div className="eyebrow">{settings.eyebrow}</div>
@@ -30,10 +31,10 @@ export default async function Home() {
     </section>
 
     <section className="section">
-      <header className="section-head"><div className="eyebrow">02 / Latest paper</div><h2 className="preserve-lines">{settings.paperHeading}</h2></header>
+      <header className="section-head"><div className="eyebrow">02 / Featured paper</div><h2 className="preserve-lines">{settings.paperHeading}</h2></header>
       <article className="feature paper-feature">
-        <Link href={`/papers/${paper.slug}`} className="feature-media"><Image src={paper.image} alt="Sculptural arrangement of layered paper" fill sizes="(max-width: 850px) 100vw, 40vw" />{paper.sample&&<span className="sample-tag">Sample content</span>}</Link>
-        <div className="feature-copy"><div className="meta-row"><span>{paper.topic}</span><span>{formatEditorialDate(paper.publishedAt)}</span><span>{paper.readingTime}</span><span>{paper.views} views</span></div><h3>{paper.title}</h3><p>{paper.subtitle} {paper.excerpt}</p><div className="feature-actions"><Link className="text-link" href={`/papers/${paper.slug}`}>Read paper <span>↗</span></Link><ShareControl compact title={paper.title} url={`/papers/${paper.slug}`}/></div></div>
+        <Link href={`/papers/${paper.slug}`} className="feature-media"><Image src={paper.image} alt={`Figure from ${paper.title}`} fill sizes="(max-width: 850px) 100vw, 40vw" />{paper.sample&&<span className="sample-tag">Sample content</span>}</Link>
+        <div className="feature-copy"><div className="meta-row"><span>{paper.category}</span><span>{formatEditorialDate(paper.archiveDate)}</span><span>{paper.readingTime}</span><span>{paper.views} views</span></div><h3>{paper.title}</h3><p>{paper.summary||paper.excerpt}</p><div className="feature-actions"><Link className="text-link" href={`/papers/${paper.slug}`}>Read paper <span>↗</span></Link><ShareControl compact title={paper.title} url={`/papers/${paper.slug}`}/></div></div>
       </article>
     </section>
 

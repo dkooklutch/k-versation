@@ -28,22 +28,46 @@ export type Paper = {
   slug: string
   title: string
   subtitle: string
+  summary: string
   excerpt: string
   topic: string
+  category: string
   publishedAt: string
+  archiveDate: string
+  originalDraftDate?: string
+  revisedAt?: string
+  authorName: string
   readingTime: string
   audioDuration?: string
   pdfUrl?: string
   pdfDownloadEnabled?: boolean
   image: string
-  body: Array<{ heading?: string; text?: string; quote?: string }>
+  body: PaperBlock[]
+  collectionPdfUrl?: string
+  seoTitle?: string
+  seoDescription?: string
   views: number
   reactions: number
+  commentsEnabled: boolean
+  reactionsEnabled: boolean
   status: ContentStatus
   sample: boolean
   homepageVisible?: boolean
   featured?: boolean
 }
+
+export type PaperBlock =
+  | { type: 'paragraph'; text: string }
+  | { type: 'heading'; text: string; level?: 2 | 3 }
+  | { type: 'quote'; text: string }
+  | {
+      type: 'figure'
+      url: string
+      alt: string
+      caption?: string
+      width?: number
+      height?: number
+    }
 
 export type PublicComment = {
   id: string
