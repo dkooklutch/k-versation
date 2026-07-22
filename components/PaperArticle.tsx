@@ -1,11 +1,9 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import { formatLongEditorialDate } from '@/lib/content'
 import type { Paper } from '@/lib/types'
 
-export default function PaperArticle({ paper, related = [], preview = false }: {
+export default function PaperArticle({ paper, preview = false }: {
   paper: Paper
-  related?: Paper[]
   preview?: boolean
 }) {
   const firstParagraphIndex = paper.body.findIndex(block => block.type === 'paragraph')
@@ -72,13 +70,5 @@ export default function PaperArticle({ paper, related = [], preview = false }: {
       </footer>}
     </article>
 
-    {related.length > 0 && <section className="related-papers">
-      <header><div className="eyebrow">Continue reading</div><h2>Related papers</h2></header>
-      <div>{related.map(item => <Link href={`/papers/${item.slug}`} key={item.id}>
-        <span>{item.category}</span>
-        <h3>{item.title}</h3>
-        <p>{item.subtitle}</p>
-      </Link>)}</div>
-    </section>}
   </>
 }

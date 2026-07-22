@@ -4,6 +4,7 @@ import { papers } from '@/lib/content'
 import Interactions from '@/components/Interactions'
 import ContentAnalytics from '@/components/ContentAnalytics'
 import PaperArticle from '@/components/PaperArticle'
+import RelatedPapers from '@/components/RelatedPapers'
 import { getPaper, getPublishedPapers } from '@/lib/public-content'
 
 export const dynamic = 'force-dynamic'
@@ -41,12 +42,13 @@ export default async function PaperDetail({ params }: { params: Promise<{ slug: 
 
   return <>
     <ContentAnalytics contentId={paper.id} contentType="paper" />
-    <PaperArticle paper={paper} related={related} />
+    <PaperArticle paper={paper} />
     <Interactions
       contentId={paper.id}
       contentType="paper"
       commentsEnabled={paper.commentsEnabled}
       reactionsEnabled={paper.reactionsEnabled}
     />
+    <RelatedPapers papers={related} />
   </>
 }
