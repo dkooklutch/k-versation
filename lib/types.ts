@@ -4,16 +4,31 @@ export type Conversation = {
   id: string
   slug: string
   title: string
+  sourceTitle?: string
   guestName: string
   guestTitle?: string
+  subtitle?: string
+  shortDescription?: string
   description: string
+  sourceDescription?: string
   category: string
+  topic?: string
   publishedAt: string
+  websitePublishedAt?: string
   duration: string
   image: string
   videoUrl?: string
+  videoProvider?: 'youtube' | 'vimeo' | 'upload' | 'hosted'
+  externalVideoId?: string
+  captionsAvailable?: boolean
+  captionTracks?: { languageCode: string; name: string; kind?: string }[]
+  chapters?: { title: string; startsAtSeconds: number }[]
+  relatedLinks?: string[]
   transcript?: string
+  seoTitle?: string
+  seoDescription?: string
   views: number
+  completions?: number
   reactions: number
   commentsEnabled: boolean
   reactionsEnabled: boolean
