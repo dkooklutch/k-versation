@@ -69,6 +69,12 @@ function engagementSnapshot(rows) {
   }]))
 }
 
+function sameEngagement(before, after) {
+  return slugs.every(slug =>
+    JSON.stringify(before[slug]) === JSON.stringify(after[slug])
+  )
+}
+
 const client = new Client({
   connectionString: connectionUrl.toString(),
   ssl: { rejectUnauthorized: false },
@@ -199,7 +205,7 @@ try {
     order by c.original_publication_date desc
   `, [slugs])
   const after = engagementSnapshot(afterResult.rows)
-  if (JSON.stringify(before) !== JSON.stringify(after)) throw new Error('Engagement verification failed; transaction will be rolled back.')
+  if (!sameEngagement(before, after)) throw new Error('Engagement verification failed; transaction will be rolled back.')
   if (
     afterResult.rows.length !== 6 ||
     afterResult.rows[0]?.slug !== 'jamie-gao' ||
