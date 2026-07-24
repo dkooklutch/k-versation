@@ -29,14 +29,23 @@ async function get(url) {
 }
 
 const { text: archive } = await get(`${origin}/conversations`)
+const searchableArchive = archive
+  .replace(/\\u([0-9a-f]{4})/gi, (_, code) => String.fromCharCode(Number.parseInt(code, 16)))
+  .toLowerCase()
 let previous = -1
 for (const slug of orderedSlugs) {
   const position = archive.indexOf(`/conversations/${slug}`)
   if (position < 0 || position <= previous) throw new Error(`Archive order failed at ${slug}`)
   previous = position
 }
-for (const term of ['Sera Shim', 'IVE', 'Suno', 'Coach Logan', 'KBL', 'Quantum Skills Lab']) {
-  if (!archive.includes(term)) throw new Error(`Search corpus term missing from archive: ${term}`)
+for (const term of [
+  'Sera Shim', 'IVE', 'Starship', 'BTS', 'Psy', 'Gangnam Style', 'K-pop', 'AI',
+  'Suno', 'voice', 'malicious', 'copyright', 'KATSEYE', 'Kim Bum-soo',
+  'Coach Logan', 'Kim Seung-chan', 'Korean basketball', 'KBL', 'NBA',
+  'Quantum Basketball', 'Quantum Skills Lab', 'Crocsman', 'Hitman',
+  'Lee Hyun-joong', 'Yeo Jun-seok', 'women’s basketball', 'birth rate',
+]) {
+  if (!searchableArchive.includes(term.toLowerCase())) throw new Error(`Search corpus term missing from archive: ${term}`)
 }
 
 const results = []
