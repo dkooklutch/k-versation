@@ -189,7 +189,8 @@
 
 /* Keep the archival photographs above the backdrop and visibly distributed to the far right. */
 .opening-history{z-index:0}
-.opening-history figure:nth-child(6),.opening-history figure:nth-child(8){filter:grayscale(.82) contrast(1.12) brightness(1.08)}
+.opening-history figure:nth-child(6){inset:11vh 4vw auto auto;width:23vw;height:31vh;filter:grayscale(.82) contrast(1.12) brightness(1.08)}
+.opening-history figure:nth-child(8){inset:auto 4vw 9vh auto;width:21vw;height:25vh;filter:grayscale(.82) contrast(1.12) brightness(1.08)}
 
 @media(max-width:700px){
   .reaction-set{width:100%;display:grid;grid-template-columns:1fr}
