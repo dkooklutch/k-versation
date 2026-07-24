@@ -1,4 +1,35 @@
 'use client'
-import Link from'next/link';import{usePathname,useRouter}from'next/navigation';import{useState}from'react'
-const links=[['Overview','/host/dashboard'],['Edit Homepage','/host/dashboard/settings'],['Manage Conversations','/host/dashboard/content?type=conversation'],['Manage Papers','/host/dashboard/content?type=paper'],['Edit By the Numbers','/host/dashboard/numbers'],['Manage Comments','/host/dashboard/comments'],['Manage Subscribers','/host/dashboard/members'],['Manage Questions','/host/dashboard/questions']]
-export default function HostShell({children}:{children:React.ReactNode}){const r=useRouter(),path=usePathname(),[loggingOut,setLoggingOut]=useState(false);async function logout(){setLoggingOut(true);await fetch('/api/host/logout',{method:'POST',cache:'no-store'});r.replace('/host/login');r.refresh()}return <div className="host-shell"><aside><Link className="nav-mark" href="/">K<span>—</span>V</Link><nav>{links.map(([label,href])=><Link key={href} href={href} aria-current={path===href.split('?')[0]?'page':undefined}>{label}</Link>)}</nav><button onClick={logout} disabled={loggingOut}>{loggingOut?'Logging out…':'Log Out'}</button></aside><main>{children}</main></div>}
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+const links = [
+  ['Dashboard', '/host/dashboard'],
+  ['Content', '/host/dashboard/content'],
+  ['Comments', '/host/dashboard/comments'],
+  ['Questions', '/host/dashboard/questions'],
+  ['Members', '/host/dashboard/members'],
+  ['Analytics', '/host/dashboard/analytics'],
+  ['Numbers', '/host/dashboard/numbers'],
+  ['Settings', '/host/dashboard/settings'],
+]
+
+export default function HostShell({ children }: { children: React.ReactNode }) {
+  const path = usePathname()
+  return <div className="host-shell">
+    <aside>
+      <Link className="nav-mark" href="/">K<span>—</span>V</Link>
+      <nav>
+        {links.map(([label, href]) => <Link
+          key={href}
+          href={href}
+          aria-current={path === href.split('?')[0] ? 'page' : undefined}
+        >{label}</Link>)}
+      </nav>
+      <form action="/api/host/logout" method="post">
+        <button type="submit">Log Out</button>
+      </form>
+    </aside>
+    <main>{children}</main>
+  </div>
+}

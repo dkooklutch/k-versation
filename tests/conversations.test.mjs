@@ -115,3 +115,45 @@ test('Conversation views are page-load based and prefetch safe', async () => {
   assert.match(route, /onConflict:'page_load_id'/)
   assert.match(route, /ignoreDuplicates:true/)
 })
+
+test('the editorial refresh has clean professional titles and host-written descriptions', async () => {
+  const refresh = JSON.parse(await read('data/conversations/editorial-refresh.json'))
+  assert.equal(refresh.conversations.length, 6)
+  for (const record of refresh.conversations) {
+    assert.doesNotMatch(record.title, /K-?VERSATION/i)
+    assert.doesNotMatch(record.title, /[\u3131-\uD79D]/u)
+    assert.doesNotMatch(`${record.title} ${record.editorial_description}`, /[—;]/)
+    assert.ok(record.editorial_description.startsWith('I had the opportunity to interview '))
+    assert.ok(record.editorial_description.endsWith('I hope you enjoy.'))
+    assert.ok((record.editorial_description.match(/[.!?](?:\s|$)/g) || []).length >= 3)
+    assert.equal(refresh.comments[record.slug].length, 3)
+  }
+})
+
+test('public and host reaction interfaces expose individual persisted counts', async () => {
+  const [interactions, reactions, host, hostPage] = await Promise.all([
+    read('components/Interactions.tsx'),
+    read('app/api/reactions/route.ts'),
+    read('components/HostContentForm.tsx'),
+    read('app/host/(dashboard)/dashboard/content/page.tsx'),
+  ])
+  for (const type of ['appreciate', 'insightful', 'powerful']) {
+    assert.match(interactions, new RegExp(type))
+    assert.match(reactions, new RegExp(`${type}_adjustment`))
+    assert.match(hostPage, new RegExp(`${type}_verified`))
+  }
+  assert.match(host, /\$\{type\}_adjustment/)
+  assert.match(reactions, /export async function GET/)
+  assert.match(interactions, /counts\[type\]\.toLocaleString/)
+})
+
+test('host passwords remain visible and logout uses a non-JavaScript form', async () => {
+  const [login, shell] = await Promise.all([
+    read('app/host/login/HostLoginForm.tsx'),
+    read('components/HostShell.tsx'),
+  ])
+  assert.match(login, /type="text" name="password"/)
+  assert.doesNotMatch(login, /type="password"/)
+  assert.match(shell, /method="post"/)
+  assert.match(shell, /action="\/api\/host\/logout"/)
+})

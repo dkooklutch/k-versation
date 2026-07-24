@@ -1,0 +1,84 @@
+{
+  "conversations": [
+    {
+      "slug": "jamie-gao",
+      "title": "Education, Exchange, and the Modern Classroom",
+      "subtitle": "Learning across cultures and educational systems",
+      "short_description": "Jamie Gao reflects on Korean education, cultural exchange, and the responsibilities of the modern classroom.",
+      "editorial_description": "I had the opportunity to interview Jamie Gao, a Mandarin and literature teacher at The Nueva School who leads its Taiwan Exchange Program. We discuss Korean education, classroom culture, and the value of exchange across different learning systems. Jamie reflects on how educators can help students remain curious, adaptable, and connected to the wider world. I hope you enjoy.",
+      "seo_description": "Daniel Koo speaks with Jamie Gao about Korean education, cultural exchange, and the responsibilities of the modern classroom."
+    },
+    {
+      "slug": "diane-rosenberg",
+      "title": "Rethinking Education for a Changing Generation",
+      "subtitle": "Leadership, learning, and the future of school",
+      "short_description": "Diane Rosenberg considers educational leadership, Asian education, and how schools can serve a changing generation.",
+      "editorial_description": "I had the opportunity to interview Diane Rosenberg, an educator and the founder of Butterfly Grove. We discuss the purpose of education, the pressures surrounding Asian education, and the responsibilities schools carry as technology changes how students learn. Diane brings decades of school leadership to a thoughtful conversation about building learning environments that remain ambitious, humane, and responsive to a new generation. I hope you enjoy.",
+      "seo_description": "Daniel Koo speaks with Diane Rosenberg about educational leadership, Asian education, and building schools for a changing generation."
+    },
+    {
+      "slug": "coach-logan",
+      "title": "Coach Logan on the Future of Korean Basketball",
+      "subtitle": "Player development, coaching culture, and the KBL",
+      "short_description": "Coach Logan examines player development, coaching culture, and the structural challenges facing Korean basketball.",
+      "editorial_description": "I had the opportunity to interview Coach Logan, Kim Seung-chan, a former KBL player and the head coach of Quantum Basketball. We discuss his playing career, the injuries that shaped his path, and the structural challenges facing Korean basketball. Coach Logan also explains what young players, coaches, and the KBL must change if Korea hopes to compete more confidently on the international stage. I hope you enjoy.",
+      "seo_description": "Daniel Koo speaks with Coach Logan, Kim Seung-chan, about player development, coaching culture, the KBL, and Korean basketball."
+    },
+    {
+      "slug": "sera-shim",
+      "title": "IVE, Global K-pop, and the Age of AI",
+      "subtitle": "Artists, audiences, and the next era of K-pop",
+      "short_description": "Sera Shim discusses IVE, K-pop's international growth, artist protection, and the role of technology in music.",
+      "editorial_description": "I had the opportunity to interview Sera Shim, Director of Strategic Planning at Starship Entertainment. We discuss IVE's global rise, the expansion of K-pop, artist protection, and the changing role of technology in music. Sera offers a candid view of how the industry can adopt new tools while preserving the human emotion and communication that artists share with their audiences. I hope you enjoy.",
+      "seo_description": "Daniel Koo speaks with Sera Shim about IVE, K-pop's global growth, artist protection, and the changing role of technology in music."
+    },
+    {
+      "slug": "yoonjong-park",
+      "title": "Computer Science and the Technology of Everyday Life",
+      "subtitle": "Building products with purpose and perspective",
+      "short_description": "Yoonjong Park reflects on computer science, product leadership, and the place of intelligent technology in everyday life.",
+      "editorial_description": "I had the opportunity to interview Yoonjong Park, a Korea Olympiad in Informatics medalist, Seoul National University computer science graduate, and CTO of PhotoWidget. We discuss his path through computer science, the practical work of building digital products, and the growing presence of intelligent technology in daily life. Yoonjong offers a grounded perspective on technical ambition, leadership, and the responsibility to build tools that serve people well. I hope you enjoy.",
+      "seo_description": "Daniel Koo speaks with Yoonjong Park about computer science, product leadership, and the role of intelligent technology in everyday life."
+    },
+    {
+      "slug": "lee-seung-yong-codetree",
+      "title": "Building CodeTree and a New Generation of Founders",
+      "subtitle": "Entrepreneurship, education, and responsible technology",
+      "short_description": "Lee Seung Yong discusses building CodeTree, entrepreneurship in South Korea, and responsible technology for the next generation.",
+      "editorial_description": "I had the opportunity to interview Lee Seung Yong, founder of CodeTree and Branch&Bound. We discuss the experience of starting a company in South Korea, the educational mission behind CodeTree, and the judgment required to build responsibly with new technology. Lee also shares practical advice for a younger generation of founders who want to turn technical ability into meaningful work. I hope you enjoy.",
+      "seo_description": "Daniel Koo speaks with Lee Seung Yong about building CodeTree, entrepreneurship in South Korea, and responsible technology."
+    }
+  ],
+  "comments": {
+    "jamie-gao": [
+      "The comparison between classroom expectations and student curiosity was thoughtful. I would love to hear more about how exchange programs change the way students see their own education.",
+      "The point about learning across cultures stayed with me. Daniel asked the questions I was hoping the conversation would explore.",
+      "This made the differences between education systems feel much more personal and much less abstract."
+    ],
+    "diane-rosenberg": [
+      "Diane's perspective on school leadership feels especially important right now. The focus on keeping education humane was refreshing.",
+      "I appreciated how this conversation connected Asian education with the larger question of what schools are actually for.",
+      "There is a lot here for parents and teachers to think about. I hope there is a second conversation with Diane."
+    ],
+    "coach-logan": [
+      "Coach Logan's explanation of why young players need more freedom was one of the strongest parts of the interview.",
+      "The comparison with Japan made the development problem very clear. Korean basketball needs more conversations like this.",
+      "His final advice about continuing after failure was simple and honest. That message applies far beyond basketball."
+    ],
+    "sera-shim": [
+      "Her distinction between using technology for efficiency and preserving human emotion was especially clear.",
+      "The discussion of IVE and the importance of consistent values gave me a new way to understand the group's success.",
+      "I appreciated the honest answer about artist protection and malicious comments. This felt thoughtful and substantive."
+    ],
+    "yoonjong-park": [
+      "Yoonjong's path from competitive programming to product leadership was fascinating to hear about.",
+      "I liked that the conversation stayed practical when discussing technology in everyday life.",
+      "This was a strong introduction to how computer science becomes real products used by real people."
+    ],
+    "lee-seung-yong-codetree": [
+      "The discussion about starting a company in South Korea felt direct and useful.",
+      "I enjoyed hearing how CodeTree connects technical education with the confidence to solve difficult problems.",
+      "Lee's advice for younger founders was practical without making entrepreneurship sound easy."
+    ]
+  }
+}

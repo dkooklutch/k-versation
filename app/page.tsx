@@ -26,14 +26,14 @@ export default async function Home() {
       <header className="section-head"><div className="eyebrow">01 / Latest conversation</div><h2 className="preserve-lines">{settings.conversationHeading}</h2></header>
       <article className="feature">
         <Link href={`/conversations/${conversation.slug}`} className="feature-media"><Image src={conversation.image} alt="Abstract paper forms facing one another" fill sizes="(max-width: 850px) 100vw, 65vw" priority />{conversation.sample&&<span className="sample-tag">Sample content</span>}</Link>
-        <div className="feature-copy"><div className="meta-row"><span>{conversation.category}</span><span>{formatEditorialDate(conversation.publishedAt)}</span><span>{conversation.duration}</span><span>{conversation.views} views</span></div><h3>{conversation.title}</h3><p>With {conversation.guestName}. {conversation.description}</p><div className="feature-actions"><Link className="text-link" href={`/conversations/${conversation.slug}`}>Watch conversation <span>↗</span></Link><ShareControl compact title={conversation.title} url={`/conversations/${conversation.slug}`}/></div></div>
+        <div className="feature-copy"><div className="meta-row"><span>{conversation.category}</span><span>{formatEditorialDate(conversation.publishedAt)}</span><span>{conversation.duration}</span><span>{conversation.views} views</span></div><h3>{conversation.title}</h3><p>{conversation.description}</p><div className="feature-actions"><Link className="text-link" href={`/conversations/${conversation.slug}`}>Watch conversation <span>↗</span></Link><ShareControl compact title={conversation.title} url={`/conversations/${conversation.slug}`}/></div></div>
       </article>
     </section>
 
     <section className="section">
       <header className="section-head"><div className="eyebrow">02 / Featured paper</div><h2 className="preserve-lines">{settings.paperHeading}</h2></header>
-      <article className="feature paper-feature">
-        <Link href={`/papers/${paper.slug}`} className="feature-media"><Image src={paper.image} alt={`Figure from ${paper.title}`} fill sizes="(max-width: 850px) 100vw, 40vw" />{paper.sample&&<span className="sample-tag">Sample content</span>}</Link>
+      <article className={`feature paper-feature ${paper.slug==='after-midnight-in-seoul'?'paper-feature-photo':''}`}>
+        <Link href={`/papers/${paper.slug}`} className="feature-media"><Image src={paper.image} alt={paper.slug==='after-midnight-in-seoul'?'Workers heading home on a Seoul street after midnight':`Figure from ${paper.title}`} fill sizes="(max-width: 850px) 100vw, 40vw" />{paper.sample&&<span className="sample-tag">Sample content</span>}</Link>
         <div className="feature-copy"><div className="meta-row"><span>{paper.category}</span><span>{formatEditorialDate(paper.archiveDate)}</span><span>{paper.readingTime}</span><span>{paper.views} views</span></div><h3>{paper.title}</h3><p>{paper.summary||paper.excerpt}</p><div className="feature-actions"><Link className="text-link" href={`/papers/${paper.slug}`}>Read paper <span>↗</span></Link><ShareControl compact title={paper.title} url={`/papers/${paper.slug}`}/></div></div>
       </article>
     </section>

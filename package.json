@@ -15,6 +15,8 @@
     "conversations:activate-native": "node --env-file=.env.local scripts/activate-native-conversations.mjs",
     "conversations:verify-live": "node --env-file=.env.local scripts/verify-live-native-conversations.mjs",
     "conversations:verify-views": "node --env-file=.env.local scripts/verify-live-conversation-views.mjs",
+    "editorial:migrate": "node --env-file=.env.local scripts/apply-editorial-refresh.mjs --schema-only",
+    "editorial:apply": "node --env-file=.env.local scripts/apply-editorial-refresh.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {

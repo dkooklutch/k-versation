@@ -47,6 +47,7 @@ export type Conversation = {
   views: number
   completions?: number
   reactions: number
+  reactionCounts?: { appreciate: number; insightful: number; powerful: number }
   commentsEnabled: boolean
   reactionsEnabled: boolean
   status: ContentStatus
@@ -80,6 +81,7 @@ export type Paper = {
   seoDescription?: string
   views: number
   reactions: number
+  reactionCounts?: { appreciate: number; insightful: number; powerful: number }
   commentsEnabled: boolean
   reactionsEnabled: boolean
   status: ContentStatus
