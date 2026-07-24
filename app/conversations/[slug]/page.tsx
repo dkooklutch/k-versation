@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { conversations, formatLongEditorialDate } from '@/lib/content'
 import MediaPlayer from '@/components/MediaPlayer'
 import Interactions from '@/components/Interactions'
 import ContentAnalytics from '@/components/ContentAnalytics'
+import ConversationTranscript from '@/components/ConversationTranscript'
 import RelatedConversations from '@/components/RelatedConversations'
 import { getConversation, getPublishedConversations } from '@/lib/public-content'
 
@@ -21,6 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return conversation ? {
     title: conversation.seoTitle || conversation.title,
     description: conversation.seoDescription || conversation.shortDescription || conversation.description,
+    authors: conversation.hostName ? [{ name: conversation.hostName }] : undefined,
     openGraph: { images: [conversation.image], type: 'video.other' },
   } : {}
 }
@@ -33,29 +34,26 @@ export default async function ConversationDetail({ params }: { params: Promise<{
     .filter(item => item.id !== conversation.id)
     .sort((a, b) => Number(b.category === conversation.category) - Number(a.category === conversation.category))
     .slice(0, 3)
+  const showTranscript = Boolean(conversation.transcriptEnabled && conversation.transcriptExchanges?.length)
+  const interviewer = conversation.interviewerName || 'Daniel Koo'
+  const host = conversation.hostName || 'Daniel Koo'
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: conversation.title,
+    description: conversation.seoDescription || conversation.shortDescription || conversation.description,
+    thumbnailUrl: [conversation.image],
+    uploadDate: conversation.publishedAt,
+    contentUrl: conversation.videoProvider === 'hosted' ? conversation.videoUrl : undefined,
+    actor: { '@type': 'Person', name: conversation.guestName },
+    director: { '@type': 'Person', name: interviewer },
+    creator: { '@type': 'Person', name: host },
+  }
 
   return <>
     <ContentAnalytics contentId={conversation.id} contentType="conversation" />
-    <article>
-      <header className="article-hero">
-        <div className="article-hero-copy">
-          <div className="eyebrow">Conversation / {conversation.category}</div>
-          <div>
-            <div className="meta-row">
-              <span>Published {formatLongEditorialDate(conversation.publishedAt)}</span>
-              <span>{conversation.duration}</span>
-              <span>{conversation.views.toLocaleString()} views</span>
-            </div>
-            <h1>{conversation.title}</h1>
-            <p>With {conversation.guestName}{conversation.guestTitle ? `, ${conversation.guestTitle}` : ''}</p>
-          </div>
-          <p>{conversation.shortDescription || conversation.description}</p>
-        </div>
-        <div className="article-hero-media">
-          <Image src={conversation.image} alt={`${conversation.title} thumbnail`} width={1400} height={1600} priority />
-        </div>
-      </header>
-
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
+    <article className="conversation-article">
       <MediaPlayer
         url={conversation.videoUrl}
         title={conversation.title}
@@ -63,20 +61,41 @@ export default async function ConversationDetail({ params }: { params: Promise<{
         provider={conversation.videoProvider}
         externalVideoId={conversation.externalVideoId}
         captionsAvailable={conversation.captionsAvailable}
+        poster={conversation.image}
       />
 
-      <div className="article-content conversation-content">
-        <div className="prose">
-          <div className="eyebrow">About this conversation</div>
+      <header className="conversation-masthead">
+        <div className="eyebrow">Conversation / {conversation.category}</div>
+        <div className="conversation-title-grid">
+          <div>
+            <div className="meta-row">
+              <span>Published {formatLongEditorialDate(conversation.publishedAt)}</span>
+              <span>{conversation.duration}</span>
+              <span>{conversation.views.toLocaleString()} views</span>
+            </div>
+            <h1>{conversation.title}</h1>
+          </div>
+          <dl className="conversation-credits">
+            <div><dt>Guest</dt><dd>{conversation.guestName}</dd></div>
+            <div><dt>Interviewer</dt><dd>{interviewer}</dd></div>
+            <div><dt>Host</dt><dd>{host}</dd></div>
+          </dl>
+        </div>
+        <div className="conversation-description">
           {conversation.subtitle && <h2>{conversation.subtitle}</h2>}
           <p>{conversation.description}</p>
-          {conversation.chapters?.length ? <section className="conversation-chapters"><h2>Chapters</h2><ol>{conversation.chapters.map(chapter => <li key={`${chapter.startsAtSeconds}-${chapter.title}`}><time>{Math.floor(chapter.startsAtSeconds / 60)}:{String(chapter.startsAtSeconds % 60).padStart(2, '0')}</time><span>{chapter.title}</span></li>)}</ol></section> : null}
-          {conversation.transcript && <section><h2>Transcript</h2><p className="conversation-transcript">{conversation.transcript}</p></section>}
-          {conversation.sourceDescription && <details className="source-description"><summary>Source description</summary><p>{conversation.sourceDescription}</p></details>}
         </div>
-      </div>
+      </header>
     </article>
-    <Interactions contentId={conversation.id} contentType="conversation" commentsEnabled={conversation.commentsEnabled} reactionsEnabled={conversation.reactionsEnabled} />
+
+    <Interactions contentId={conversation.id} contentType="conversation" commentsEnabled={conversation.commentsEnabled} reactionsEnabled={conversation.reactionsEnabled} part="controls" />
+    {showTranscript && <ConversationTranscript
+      exchanges={conversation.transcriptExchanges || []}
+      interviewer={interviewer}
+      guest={conversation.guestName}
+      language={conversation.transcriptLanguage || 'English'}
+    />}
+    <Interactions contentId={conversation.id} contentType="conversation" commentsEnabled={conversation.commentsEnabled} reactionsEnabled={conversation.reactionsEnabled} part="comments" />
     <RelatedConversations conversations={related} />
   </>
 }

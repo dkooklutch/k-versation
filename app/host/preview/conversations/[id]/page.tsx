@@ -5,6 +5,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { mapConversation } from '@/lib/public-content'
 import { formatLongEditorialDate } from '@/lib/content'
 import MediaPlayer from '@/components/MediaPlayer'
+import ConversationTranscript from '@/components/ConversationTranscript'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
@@ -26,8 +27,9 @@ export default async function HostConversationPreview({ params }: { params: Prom
         </div>
         <div className="article-hero-media"><Image src={conversation.image} alt="" width={1400} height={1600} priority /></div>
       </header>
-      <MediaPlayer url={conversation.videoUrl} title={conversation.title} contentId={conversation.id} provider={conversation.videoProvider} externalVideoId={conversation.externalVideoId} captionsAvailable={conversation.captionsAvailable} trackCompletion={false} />
+      <MediaPlayer url={conversation.videoUrl} title={conversation.title} contentId={conversation.id} provider={conversation.videoProvider} externalVideoId={conversation.externalVideoId} captionsAvailable={conversation.captionsAvailable} trackCompletion={false} poster={conversation.image} />
       <div className="article-content"><div className="prose"><div className="eyebrow">About this conversation</div><p>{conversation.description}</p></div></div>
     </article>
+    {conversation.transcriptEnabled&&conversation.transcriptExchanges?.length?<ConversationTranscript exchanges={conversation.transcriptExchanges} interviewer={conversation.interviewerName||'Daniel Koo'} guest={conversation.guestName} language={conversation.transcriptLanguage||'English'}/>:null}
   </main>
 }

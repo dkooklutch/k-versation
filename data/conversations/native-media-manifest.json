@@ -1,0 +1,44 @@
+{
+  "sera-shim": {
+    "source_file": "K-VERSATION_ Interview with Starship Manager Sera Shim!.mp4",
+    "source_bytes": 116571355,
+    "source_sha256": "7a741e5766c2bd7ab4680880300f30e04e95c929f4dc9ee7bec2bb8cbcedd11b",
+    "playlist_path": "video/conversations/sera-shim/native-v1/master.m3u8",
+    "poster_path": "image/conversations/sera-shim/native-v1/poster.jpg"
+  },
+  "diane-rosenberg": {
+    "source_file": "K-VERSATION_ Interview with Diane Rosenberg.mp4",
+    "source_bytes": 179177959,
+    "source_sha256": "5638856315bacf187458a65a5bc8b1dd0b63689944e9b80535b4c63ec5214106",
+    "playlist_path": "video/conversations/diane-rosenberg/native-v1/master.m3u8",
+    "poster_path": "image/conversations/diane-rosenberg/native-v1/poster.jpg"
+  },
+  "jamie-gao": {
+    "source_file": "K-VERSATION_ Interview with Jamie Gao!.mp4",
+    "source_bytes": 164871545,
+    "source_sha256": "1a5d05ad85521ac901fd400e65e47ac6942c62b5cc47059fda89b8a1bbb4b6d5",
+    "playlist_path": "video/conversations/jamie-gao/native-v1/master.m3u8",
+    "poster_path": "image/conversations/jamie-gao/native-v1/poster.jpg"
+  },
+  "lee-seung-yong-codetree": {
+    "source_file": "K-VERSATION_ Interview with CodeTree CEO, Lee Seung Yong _ 이승용.mp4",
+    "source_bytes": 239876260,
+    "source_sha256": "9390fd30c2db3c9c1a739a16446ef971230b82c9a272a2989596528062ede9e9",
+    "playlist_path": "video/conversations/lee-seung-yong-codetree/native-v1/master.m3u8",
+    "poster_path": "image/conversations/lee-seung-yong-codetree/native-v1/poster.jpg"
+  },
+  "yoonjong-park": {
+    "source_file": "K-VERSATION_ Interview with Yoonjong Park!.mp4",
+    "source_bytes": 102757097,
+    "source_sha256": "f3fd61f4e25f45ffdc69ee67de2fcebd3ea80d44a18b3cd357c8ed1de5ca647a",
+    "playlist_path": "video/conversations/yoonjong-park/native-v1/master.m3u8",
+    "poster_path": "image/conversations/yoonjong-park/native-v1/poster.jpg"
+  },
+  "coach-logan": {
+    "source_file": "K-VERSATION_ Interview with former KBL player, Coach Logan!.mp4",
+    "source_bytes": 164981610,
+    "source_sha256": "09679512c6d30ab4c822734fd6382bee8513b5371eedebb0c21802aa0b484bf8",
+    "playlist_path": "video/conversations/coach-logan/native-v1/master.m3u8",
+    "poster_path": "image/conversations/coach-logan/native-v1/poster.jpg"
+  }
+}

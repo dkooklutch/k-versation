@@ -10,12 +10,16 @@
     "typecheck": "tsc --noEmit",
     "test": "node --test tests/*.test.mjs",
     "conversations:import": "node --env-file=.env.local scripts/import-initial-conversations.mjs",
+    "conversations:upload-native": "node --env-file=.env.local scripts/upload-native-conversations.mjs",
+    "conversations:migrate-native": "node --env-file=.env.local scripts/activate-native-conversations.mjs --schema-only",
+    "conversations:activate-native": "node --env-file=.env.local scripts/activate-native-conversations.mjs",
     "check": "npm run lint && npm run typecheck && npm run test && npm run build"
   },
   "dependencies": {
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
     "clsx": "^2.1.1",
+    "hls.js": "^1.6.16",
     "iron-session": "^8.0.3",
     "lucide-react": "^0.525.0",
     "next": "16.2.9",

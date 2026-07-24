@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Hls from 'hls.js'
 
 type Provider = 'youtube' | 'vimeo' | 'upload' | 'hosted'
 type YouTubePlayer = {
@@ -117,6 +118,76 @@ function YouTubePlayer({
   )
 }
 
+function NativePlayer({
+  url,
+  title,
+  contentId,
+  poster,
+  speed,
+  trackCompletion,
+}: {
+  url: string
+  title: string
+  contentId: string
+  poster?: string
+  speed: number
+  trackCompletion: boolean
+}) {
+  const video = useRef<HTMLVideoElement>(null)
+  const [state, setState] = useState<'loading' | 'ready' | 'buffering' | 'error'>('loading')
+
+  useEffect(() => {
+    const element = video.current
+    if (!element) return
+    let hls: Hls | undefined
+    if (/\.m3u8(?:$|\?)/i.test(url)) {
+      if (element.canPlayType('application/vnd.apple.mpegurl')) {
+        element.src = url
+      } else if (Hls.isSupported()) {
+        hls = new Hls({ enableWorker: true, startLevel: -1 })
+        hls.loadSource(url)
+        hls.attachMedia(element)
+        hls.on(Hls.Events.MANIFEST_PARSED, () => setState('ready'))
+        hls.on(Hls.Events.ERROR, (_event, data) => {
+          if (data.fatal) setState('error')
+        })
+      } else {
+        queueMicrotask(() => setState('error'))
+      }
+    } else {
+      element.src = url
+    }
+    return () => {
+      hls?.destroy()
+      element.removeAttribute('src')
+      element.load()
+    }
+  }, [url])
+
+  useEffect(() => {
+    if (video.current) video.current.playbackRate = speed
+  }, [speed])
+
+  return <div className="kv-player-stage">
+    <video
+      ref={video}
+      aria-label={title}
+      controls
+      playsInline
+      preload="metadata"
+      poster={poster}
+      onCanPlay={() => setState('ready')}
+      onPlaying={() => setState('ready')}
+      onWaiting={() => setState('buffering')}
+      onError={() => setState('error')}
+      onEnded={() => { if (trackCompletion) recordCompletion(contentId) }}
+    >Your browser cannot play this video.</video>
+    {state === 'loading' && <span className="kv-player-status">Loading Conversation…</span>}
+    {state === 'buffering' && <span className="kv-player-status buffering">Buffering…</span>}
+    {state === 'error' && <span className="kv-player-status error">The Conversation could not load. Please try again.</span>}
+  </div>
+}
+
 export default function MediaPlayer({
   url,
   title,
@@ -125,6 +196,7 @@ export default function MediaPlayer({
   externalVideoId,
   captionsAvailable = false,
   trackCompletion = true,
+  poster,
 }: {
   url?: string
   title: string
@@ -133,10 +205,11 @@ export default function MediaPlayer({
   externalVideoId?: string
   captionsAvailable?: boolean
   trackCompletion?: boolean
+  poster?: string
 }) {
   const [speed, setSpeed] = useState(1)
   const youtubeId =
-    externalVideoId ||
+    (provider === 'youtube' && externalVideoId) ||
     (provider === 'youtube' || /youtu(?:\.be|be\.com)/.test(url || '')
       ? url?.match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/)?.[1]
       : undefined)
@@ -158,5 +231,5 @@ export default function MediaPlayer({
   if (/drive\.google\.com/.test(url)){const id=url.match(/\/d\/([^/]+)/)?.[1]||new URL(url).searchParams.get('id');return id?<div className="media-player"><iframe title={title} src={`https://drive.google.com/file/d/${id}/preview`} allow="autoplay; fullscreen" allowFullScreen/></div>:<div className="media-player"><p>The hosted video link is not in a supported format.</p></div>}
   if (provider === 'vimeo' || /vimeo\.com/.test(url)){const id=externalVideoId||url.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1];return id?<div className="media-player"><iframe title={title} src={`https://player.vimeo.com/video/${id}`} allow="autoplay; fullscreen; picture-in-picture" allowFullScreen/></div>:<div className="media-player"><p>The Vimeo video ID is not in a supported format.</p></div>}
 
-  return <section className="media-player kv-player" aria-label={`${title} video player`}><header><span>K-VERSATION Player</span><small>{captionsAvailable?'Captions available':'Conversation video'}</small></header><video controls playsInline preload="metadata" onEnded={()=>{if(trackCompletion)recordCompletion(contentId)}} onLoadedMetadata={e=>{e.currentTarget.playbackRate=speed}}><source src={url}/><track kind="captions" label="English"/>Your browser cannot play this video.</video><label>Playback speed <select value={speed} onChange={e=>{const next=Number(e.target.value);setSpeed(next);const video=e.currentTarget.parentElement?.querySelector('video');if(video)video.playbackRate=next}}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></section>
+  return <section className="media-player kv-player" aria-label={`${title} video player`}><header><span>K-VERSATION Player</span><small>{captionsAvailable?'Captions available':'Native Conversation video'}</small></header><NativePlayer url={url} title={title} contentId={contentId} poster={poster} speed={speed} trackCompletion={trackCompletion}/><label>Playback speed <select value={speed} onChange={e=>setSpeed(Number(e.target.value))}><option value="0.75">0.75×</option><option value="1">1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></label></section>
 }

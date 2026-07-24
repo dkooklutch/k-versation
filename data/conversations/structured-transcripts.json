@@ -1,0 +1,175 @@
+{
+  "sera-shim": {
+    "language": "English",
+    "enabled": true,
+    "interviewer": "Daniel Koo",
+    "host": "Daniel Koo",
+    "guest": "Sera Shim",
+    "exchanges": [
+      {
+        "order": 1,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"From your perspective, what made IVE rise to popularity so quickly both in Korea and internationally?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"I would like to quote an interview from IVE’s executive producer, Vice President Seo Hyun-joo. She said that one of IVE’s strengths is “always being new while preserving unchanging values.”\n\nAlthough each release shows different colors and charms, the group never loses the core qualities that captivate its fandom. That is why IVE has become a group people look forward to and feel positively about.\n\nBecause IVE made a highly polished debut and established clear positioning, the group was able to capture both domestic and global listeners."}
+      },
+      {
+        "order": 2,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"What were some of the biggest challenges you or the team faced while promoting IVE?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"As K-pop has expanded globally, we now have to consider a wide range of international needs that we did not have to consider before. That is not easy.\n\nEach region has different cultural codes, and recently we have found it challenging to fully understand those differences and communicate with audiences across them."}
+      },
+      {
+        "order": 3,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"When do you think K-pop started becoming truly global? Was there a certain turning point?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"In the past, people often said, “Do you know Psy?” I believe Psy’s “Gangnam Style” played an important role in introducing K-pop to the world.\n\nThe true global turning point was BTS. After BTS, K-pop established a global system built around fandoms and developed into a more organized international industry. That marked the real turning point."}
+      },
+      {
+        "order": 4,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Do you think K-pop has already reached its peak, or is there still room to grow?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"Some people predicted that K-pop would decline when BTS entered the military. Similar predictions appeared whenever something happened involving groups such as NewJeans or BLACKPINK.\n\nI am glad that I can offer a positive example. The Netflix animation “KPop Demon Hunters” became extremely popular around the world and ranked number one in many countries. We see its success as evidence that the K-pop audience has expanded significantly.\n\nSongs from the production reached the top of Billboard and Spotify charts. Influencers and K-pop artists around the world also participated in related challenges, creating a productive cycle of attention and participation.\n\nWe therefore believe that K-pop still has strong growth potential. Groups such as BTS and Stray Kids also continue to sell out large venues around the world, helping expand the international K-pop audience."}
+      },
+      {
+        "order": 5,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"These days, people say that becoming an idol is harder than ever. Why do you think that is, and what makes IVE’s agency different from other companies?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"As K-pop has grown in popularity, more K-pop-style music has emerged, and competition has become extremely intense.\n\nIn the past, following a familiar formula might have been enough. Today, success requires excellence in talent, systems, capital, and nearly every other part of production.\n\nOur company operates King Kong by Starship for actor management and ShowNote for performance production. K-pop artists are now expected to act, perform in musicals, and grow in several different areas.\n\nWe have built a system that supports those multiple possibilities, which helps distinguish us from other companies."}
+      },
+      {
+        "order": 6,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"What are some problems in the K-pop industry today that need more attention? Have any of them affected IVE directly or indirectly?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"A clear example is the problem of malicious online comments. As K-pop artists gain visibility on social media, harmful comments have become increasingly severe and can cause serious emotional distress.\n\nAt Starship, we have pursued legal action for several years against people sometimes described as “cyber wreckers.” We recently won those cases.\n\nAlong with legal action, we are strengthening our internal systems and guidelines so that we can better care for and protect our artists."}
+      },
+      {
+        "order": 7,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"AI is being used more frequently in music, including K-pop. What is your opinion of this trend?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"We are constantly amazed by how many new AI applications appear. The development is fascinating.\n\nAI can reduce the cost of expensive computer graphics, improve production efficiency, and provide more options for sound. It can even allow someone to create K-pop-style music in five minutes, which lowers the barrier to creation.\n\nAt the same time, it remains difficult for us to rely fully on AI because it cannot yet reproduce emotional depth or genuine human resonance. Familiar-sounding music or lyrics cannot replace those qualities."}
+      },
+      {
+        "order": 8,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Have you heard of tools such as Suno, where users type in lyrics and AI creates an entire song? What do you think about this technology and its effect on the music industry?\n\nThere are also AI tools that can sing using a person’s cloned voice. Do you find this exciting or concerning? How might it affect real artists and idols?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"The issue needs to be considered from both sides. Personally, I find AI very interesting. From an industry perspective, it raises concerns.\n\nAn artist such as K.Will works for years to establish an identity through music and lyrics. If AI allows anyone to reproduce that type of work instantly, it could weaken or undermine the artist’s identity.\n\nThere are also copyright problems. Regulations remain unclear, and the technology could violate the rights of creators. This creates both legal and ethical concerns."}
+      },
+      {
+        "order": 9,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"If AI helps write lyrics, create choreography, or design music videos, who should receive the credit, the group or the AI? Do you think the result is still authentic?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"We are experiencing many changes through AI and already use it in several ways. When it comes to releasing songs or selecting title tracks, however, we cannot yet rely on AI-generated music.\n\nAI-created work does not carry the same authenticity or emotional force as work created by people. Creativity remains centered on human beings.\n\nThis is especially important in K-pop because K-pop is a culture of communication. Artists share real emotions and experiences with their audiences.\n\nThere is a clear difference between that type of communication and AI-generated content. Because communication is central to K-pop, fully adopting AI remains difficult."}
+      },
+      {
+        "order": 10,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Do you think K-pop groups should actively use AI in their creative work, or should there be limits on what AI is allowed to do?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"AI can be useful for improving efficiency, reducing production costs, and supporting certain parts of the creative process.\n\nThere should still be clear limits when AI begins to replace the emotional expression, identity, or communication that belongs to the artist.\n\nHuman creativity and the relationship between artists and fans should remain at the center of K-pop."}
+      },
+      {
+        "order": 11,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"With Korea’s low birth rate, do you think the idol trainee system or the future of K-pop could be affected?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"This may not align perfectly with general demographic trends.\n\nCompared with five or ten years ago, when only one or two students in a group might have wanted to become idols, today perhaps ten students might raise their hands.\n\nThe low birth rate may eventually have some effect. For now, the popularity of K-pop means that more young people want to debut, so it has not directly reduced the trainee pool.\n\nThe success of groups such as KATSEYE also shows that more international trainees and international teams may enter the industry. This could change the composition of the trainee system over time."}
+      },
+      {
+        "order": 12,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"As K-pop becomes more global, should the definition of K-pop expand? For example, can solo artists such as Kim Bum-soo also be considered K-pop?"},
+        "answer": {"speaker":"Sera Shim","role":"Guest","text":"K-pop has developed into an industry rather than remaining only a musical genre.\n\nWithin that industry, soloists, ballad singers, hip-hop artists, and idol groups can all be considered part of K-pop.\n\nPeople throughout the industry are continuing to work on expanding its scope even further."}
+      }
+    ]
+  },
+  "coach-logan": {
+    "language": "English",
+    "enabled": true,
+    "interviewer": "Daniel Koo",
+    "host": "Daniel Koo",
+    "guest": "Coach Logan, Kim Seung-chan",
+    "exchanges": [
+      {
+        "order": 1,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Welcome back to K-VERSATION. I’m your host, Daniel, and today I have a very special guest. He previously played in the Korean Basketball League and also happens to be my basketball coach. This is Coach Logan."},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Hello. I am head coach Kim Seung-chan."}
+      },
+      {
+        "order": 2,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Coach Logan began playing elite basketball in elementary school and continued into the professional KBL system. He spent approximately 17 years as a player.\n\nAfter retiring, he became the head coach and director of Quantum Skills Lab, where he has worked for approximately six years.\n\nCan you share your basketball journey, from when you first started to where you are now?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"My brother started playing basketball first. I used to go with my mother to watch his games.\n\nOne day, the coach gave me a chance to play and asked me to take a shot. My first attempt went in cleanly, and I became excited about shooting. That was how I started playing basketball."}
+      },
+      {
+        "order": 3,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"What inspired you to join Quantum Basketball? Was there a specific moment that made you want to begin teaching others? What are your goals for Quantum Basketball in the future?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"I was a professional player, but I retired after an injury. Because I had dedicated my life to basketball, I still wanted to make a positive contribution through the sport. I began by working as a trainer.\n\nHyunjoong, who founded Quantum, contacted me and asked whether I would join. As I began teaching lessons, I became interested in helping Korea build stronger basketball infrastructure through training and content creation."}
+      },
+      {
+        "order": 4,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"When you suffered injuries during your playing career, what emotions did you experience? How did you overcome those difficult periods?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"My injuries often happened when I had important opportunities. When I was a professional player, I had been confirmed as a starter, but I suffered a serious injury about one month before the season began.\n\nI recovered from that first injury. When injuries continued happening every year, the situation became mentally difficult. I wanted to escape from it and considered completing my military service.\n\nBecause I was already out for the season, I decided to complete my military duty first and then attempt a comeback or retire.\n\nI completed my service and recovered from the injury. By that point, I had become older, and I decided it would be better to retire and become a trainer."}
+      },
+      {
+        "order": 5,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"How did you come up with the ideas for Crocsman and Hitman? Why do you think they became so popular?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"It began accidentally. KJ often wore Crocs, while the rest of us usually wore slippers after lessons.\n\nSome members came to us and said they could beat us if we played while wearing those shoes.\n\nWe played the game, and it was much more entertaining than we expected. Someone recorded it on a phone.\n\nWhen we watched the video afterward, we found it very funny and began thinking about creating content in that style.\n\nCrocsman was not popular at first because it looked unusual. As we continued playing basketball in that way, more people became interested, and it eventually became popular."}
+      },
+      {
+        "order": 6,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"What kinds of players come to learn from you? Are most of them KBL-level athletes or amateurs who want to improve?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Very few professional players attend. Skill training is not as developed in Korea as it is in the United States.\n\nIn the United States, players often invest money in specialized training. In Korea, people still question whether paying for a private skill lesson will actually improve their level.\n\nWe do have some professional players, although the number is small.\n\nMost of our students are high school students, international school students, and students who attend school abroad and return during the summer. Summer is our busiest period."}
+      },
+      {
+        "order": 7,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"From your perspective, how is basketball evolving in Korea? Is the overall level improving?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"There are changes. Players such as Lee Hyun-joong and Yeo Jun-seok are competing abroad, and younger players now grow up watching them.\n\nSystems and attitudes are beginning to change.\n\nSeveral areas remain underdeveloped. Relatively few students choose basketball at a young age because they do not see a clear future in it.\n\nBaseball has the World Baseball Classic and the Olympics. Soccer has the World Cup. Korean basketball is not yet globally competitive in the same way.\n\nWe are changing, although it is difficult to say that the overall level has improved dramatically."}
+      },
+      {
+        "order": 8,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Within the KBL specifically, what changes have you seen in playing style, talent, or coaching?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Young players now have many more things to watch, especially through online video. That has clearly improved their individual skills.\n\nWhen I watch elementary and middle school players, many have good technique and can make deep three-point shots. Their individual talent and freestyle skills have improved.\n\nI do not think coaching is the main reason. Young players have access to more examples and can imitate role models such as Ja Morant and Kyrie Irving.\n\nThey now have more opportunities to try new things on their own rather than only following a coach’s instructions."}
+      },
+      {
+        "order": 9,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Do Korean children watch the KBL, or do they mostly watch the NBA?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"They mainly watch the NBA. Many do not follow the KBL and often do not know who plays for the Korean national team.\n\nAt the same time, they may know NBA bench players and sixth men. It is unfortunate, although it reflects the difference in popularity between the leagues."}
+      },
+      {
+        "order": 10,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Why do you think basketball is less popular in Korea than baseball or soccer?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"The main issue is that people do not find it entertaining enough to watch.\n\nAs a coach and former player, I notice frequent delays and issues involving officiating.\n\nMore importantly, the players’ skill level is not high enough. When the overall skill level and shooting percentage are low, the game becomes less exciting.\n\nThe NBA has dunks, deep three-point shots, and a wide range of individual skills. Korean basketball is often too simple, and teams repeat similar patterns.\n\nI believe that is the main reason it has struggled to become more popular."}
+      },
+      {
+        "order": 11,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Japan and China have sent players to the NBA, while Korea has not produced an NBA player in recent years. Why do you think that is?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"It is a difficult question.\n\nChina has an enormous population and therefore has access to many tall and physically strong players. Players such as Yang Hansen are over seven feet tall, which gives China a more diverse player pool.\n\nKorea needs to reflect seriously on Japan’s development. Players such as Yuki Kawamura are undersized and still capable of playing at the NBA level because their individual skills are outstanding.\n\nEven when Japanese basketball was not achieving strong international results, it had a productive development system.\n\nKorean basketball traditionally emphasized the team system. Players were expected to follow fixed roles and were discouraged from acting outside them.\n\nJapan offered players more freedom to express their individual abilities. Japanese players often appear to enjoy the game and play with confidence.\n\nIn Korea, a shooter who dribbles too much may be criticized or placed on the bench. That discourages experimentation.\n\nIn Japan, players often receive encouragement as long as they show what they are capable of, even when the team loses.\n\nDifferences in encouragement, individual development, and freedom have given Japanese players greater room to grow. Korean players often have less physical size and less freedom."}
+      },
+      {
+        "order": 12,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Korea has basketball schools where children train full time. Why does the country still struggle to produce NBA-level talent?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Coaching has a major influence.\n\nIn Korea, coaches are expected to win championships. Coaches who lose may not keep their positions for long, so they have to focus on immediate results.\n\nThey build systems around their strongest players and choose stable strategies that maximize the chance of winning.\n\nAllowing players to experiment with dribbling or unfamiliar skills can create risk.\n\nAs a result, players are told to keep things simple and run established patterns. This may help teams win at the youth level, although it limits the development of individual skill."}
+      },
+      {
+        "order": 13,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Even when Korean players are highly skilled at a young age, why do many struggle to reach the professional level?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"The main reason is physical development.\n\nMany Asian players are not especially tall. A player may be very successful at a young age, then struggle against larger international players as everyone grows older.\n\nSize matters."}
+      },
+      {
+        "order": 14,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"When people think about Olympic basketball, they rarely think of Asian countries as major contenders. Do you think Korea or Asia could compete at that level someday?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"I do not think Korea will be ready for that level in the near future. Improvement is possible, although I do not know how long it will take.\n\nPlayers such as Yeo Jun-seok and Lee Hyun-joong are helping the national team become more competitive.\n\nAt the Olympic level, one or two strong players are not enough. All five starters would need to perform at an All-Star level, and that is not currently realistic.\n\nKorea may compete successfully within Asia. The Olympics will remain much more difficult."}
+      },
+      {
+        "order": 15,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Women’s basketball is becoming increasingly popular in the United States. What is the situation in Korea?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Korea is significantly behind.\n\nAs I mentioned, relatively few young people begin playing basketball. Some formerly prominent girls’ high school programs now have no players at all.\n\nEven a school that recently won a championship may struggle to recruit a single new player.\n\nMany parents do not want their daughters to become athletes. Because the number of female players is so small, the overall skill level and depth of competition decline."}
+      },
+      {
+        "order": 16,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"What is the biggest mental barrier Korean players face in international competition?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Korean players have very few opportunities to compete against foreign players while growing up.\n\nThey may reach the professional level before facing an entire international team filled with taller and more physical athletes.\n\nThat creates enormous pressure. A player who normally makes a simple layup may suddenly hesitate because of the size of the defender.\n\nKorean players also do not have many reasons to practice certain shots, such as floaters, because they rarely face extremely tall defenders domestically.\n\nWhen they enter international competition, they encounter unfamiliar physical pressure, stamina demands, and situations such as powerful dunks directly in front of them.\n\nThe problem is that they did not grow up competing against those types of players."}
+      },
+      {
+        "order": 17,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"Does Korean basketball need a cultural change in mindset, training, or playing style to reach the next level?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Korea needs to give players more freedom and allow them to play more naturally.\n\nPlayers also need stronger physical conditioning and greater athletic ability. If those areas improve, Korea will become more competitive.\n\nThe training culture must also change. Players should not complete physical training only because a coach orders them to do it.\n\nA player should be able to recognize, for example, that a certain part of the body is weak or that more jump training is needed.\n\nThe player should then take responsibility for addressing that weakness.\n\nMeaningful development is difficult when athletes train only because a coach or trainer told them to.\n\nKorean basketball still relies heavily on orders, and that culture needs to change."}
+      },
+      {
+        "order": 18,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"With Korea’s declining birth rate, do you think basketball’s future will be affected?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"Yes. This issue affects more than basketball. All sports may be affected because there are fewer children.\n\nMany teams are already disappearing, so the declining birth rate will definitely influence the future of basketball."}
+      },
+      {
+        "order": 19,
+        "question": {"speaker":"Daniel Koo","role":"Interviewer","text":"If you could give one piece of advice to a 15-year-old Korean child who dreams of playing in the NBA, what would it be?"},
+        "answer": {"speaker":"Coach Logan","role":"Guest","text":"You have to keep trying.\n\nFailure will happen. Instead of becoming overwhelmed by failure, touch the ball one more time, take another shot, and continue training.\n\nYou may eventually find a solution. Even when you do not find one immediately, stopping guarantees that you gain nothing.\n\nListen to feedback and advice from other people, then continue trying and learning from experience.\n\nAs long as you keep going, I believe you will gain something. Nothing happens when you stop."}
+      }
+    ]
+  }
+}

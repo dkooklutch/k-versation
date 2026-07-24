@@ -1,5 +1,17 @@
 export type ContentStatus = 'draft' | 'scheduled' | 'published' | 'unpublished' | 'archived'
 
+export type TranscriptTurn = {
+  speaker: string
+  role: string
+  text: string
+}
+
+export type TranscriptExchange = {
+  order: number
+  question: TranscriptTurn
+  answer: TranscriptTurn
+}
+
 export type Conversation = {
   id: string
   slug: string
@@ -25,6 +37,11 @@ export type Conversation = {
   chapters?: { title: string; startsAtSeconds: number }[]
   relatedLinks?: string[]
   transcript?: string
+  transcriptLanguage?: string
+  transcriptEnabled?: boolean
+  transcriptExchanges?: TranscriptExchange[]
+  interviewerName?: string
+  hostName?: string
   seoTitle?: string
   seoDescription?: string
   views: number
